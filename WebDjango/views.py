@@ -159,48 +159,14 @@ def videosCursos(request, video_id):
 
     curso = videoActual.curso
 
-    progreso = (
-        ProgresoCurso.objects
-        .filter(
-            usuario=request.user,
-            curso=curso
-        )
-        .first()
-    )
-
-    if progreso and progreso.ultimo_video:
-
-        if (
-            videoActual.id >
-            progreso.ultimo_video.id
-        ):
-
-            messages.warning(
-                request,
-                "Debes completar el contenido anterior."
-            )
-
-            return redirect(
-                "videosCursos",
-                progreso.ultimo_video.id
-            )
-
     listVideos = list(
-        curso.videos.order_by(
-            "ordenVideos"
-        )
+        curso.videos.order_by("ordenVideos")
     )
 
-    htmlActual = (
-        listVideos.index(
-            videoActual
-        )
-    )
+    htmlActual = listVideos.index(videoActual)
 
     video_siguiente = (
-        listVideos[
-            htmlActual + 1
-        ]
+        listVideos[htmlActual + 1]
         if htmlActual + 1 < len(listVideos)
         else None
     )
@@ -213,7 +179,7 @@ def videosCursos(request, video_id):
             "video_siguiente": video_siguiente,
             "curso": curso
         }
-    )
+    )   
 
 # SE VEN LOS VIDEOS DE ACUREDO A LOS CURSOS 
 
