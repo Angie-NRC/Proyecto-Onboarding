@@ -1,0 +1,84 @@
+body{
+    background-color: #f4f6f9;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.contenedor-examen{
+    width: 80%;
+    max-width: 900px;
+    margin: 40px auto;
+    background-color: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0px 4px 15px rgba(0,0,0,0.1);
+}
+
+.titulo-examen{
+    text-align: center;
+    color: #1e3a8a;
+    margin-bottom: 40px;
+    font-size: 35px;
+}
+
+.formulario-examen{
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.bloque-pregunta{
+    background-color: #f9fafb;
+    border: 1px solid #dbeafe;
+    border-radius: 12px;
+    padding: 20px;
+    transition: 0.3s ease;
+}
+
+.bloque-pregunta:hover{
+    transform: scale(1.01);
+    box-shadow: 0px 2px 10px rgba(0,0,0,0.08);
+}
+
+.texto-pregunta{
+    color: #111827;
+    margin-bottom: 15px;
+    font-size: 22px;
+}
+
+.opcion-respuesta{
+    display: block;
+    margin-bottom: 12px;
+    font-size: 18px;
+    color: #374151;
+    cursor: pointer;
+}
+
+.opcion-respuesta input{
+    margin-right: 10px;
+    transform: scale(1.2);
+}
+
+.boton-enviar{
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    padding: 15px;
+    font-size: 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s ease;
+    margin-top: 20px;
+}
+
+.boton-enviar:hover{
+    background-color: #1d4ed8;
+    transform: scale(1.03);
+}
+
+.mensaje-vacio{
+    text-align: center;
+    font-size: 22px;
+    color: #dc2626;
+}

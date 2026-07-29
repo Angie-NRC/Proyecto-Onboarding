@@ -1,0 +1,191 @@
+/* estiloBarraNavega.css */
+
+/* Reset y base */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #fff;
+}
+
+.navbar {
+  background-color: #ffffff; 
+  border-bottom: 2px solid #f97316; 
+  padding: 0.5rem 1rem;
+  box-shadow: 0 1px 4px rgb(0 0 0 / 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.navbar .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.navbar-brand img {
+  height: 40px;
+  width: auto;
+}
+
+.navbar-menu {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar-menu-right {
+  font-weight: 600;
+}
+
+.navbar-menu a {
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #1e3a8a; 
+  padding: 0.5rem 0;
+  border-bottom: 3px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.navbar-menu a.active,
+.navbar-menu a:hover {
+  color: #f97316; 
+  border-bottom-color: #f97316;
+}
+
+.navbar-menu a.disabled {
+  color: #94a3b8;
+  cursor: default;
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .navbar .container {
+    flex-wrap: wrap;
+  }
+
+  .navbar-menu,
+  .navbar-menu-right {
+    width: 100%;
+    justify-content: center;
+    margin-top: 0.5rem;
+  }
+}
+
+
+
+
+.footer {
+    background-color: #0a4275; 
+    color: #ffffff;
+    padding: 60px 20px 30px;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+}
+
+.footer-cta {
+    margin-bottom: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px; 
+}
+
+.footer-cta p {
+    font-size: 18px;
+    font-weight: 500;
+    margin: 0;
+}
+
+.btn-footer {
+    background: transparent;
+    border: 2px solid #f2db18;
+    color: #f2db18;
+    padding: 12px 30px;
+    border-radius: 30px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-footer:hover {
+    background: #f2db18;
+    color: #0a4275;
+    transform: translateY(-2px);
+}
+
+.footer-links p {
+    font-size: 14px;
+    color: #ddd;
+    margin: 0;
+}
+
+.footer-links a {
+    color: #f2db18;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: #ffffff;
+}
+
+@media (max-width: 600px) {
+    .footer-cta p {
+        font-size: 16px;
+    }
+    .btn-footer {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+}
+
+
+.contenido-principal {
+    margin-top: 80px; 
+    padding: 20px;
+}
+
+
+
+
+
+form[action*="salir"] {
+  margin: 0;
+}
+
+form[action*="salir"] button {
+  background: none;
+  border: none;
+  padding: 0.5rem 0;
+  font-size: 0.85rem;
+  font-weight: 600;
+  font-family: inherit;
+  color: #1e3a8a; 
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  transition: all 0.3s ease;
+}
+
+form[action*="salir"] button:hover,
+form[action*="salir"] button:focus {
+  color: #f97316; 
+  border-bottom-color: #f97316;
+  outline: none;
+}
+
+form[action*="salir"] button:disabled {
+  color: #94a3b8;
+  cursor: default;
+  pointer-events: none;
+}

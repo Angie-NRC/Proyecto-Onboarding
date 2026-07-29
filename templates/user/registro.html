@@ -1,0 +1,59 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro NRC Onboarding</title>
+<link rel="stylesheet" href="{% static 'css/estiloRegistro.css' %}?v=6">
+</head>
+<body>
+     <div class= "container">
+            <div class=" row">
+                <div class="col">
+                    <div class="col-12 col-md-6 offset-md-3">
+                    <div class="card">
+                    <div class="card-body">
+                    <h2>Registro</h2>
+                        <form method="post" action="{% url 'registro' %}">
+                            {%csrf_token%}
+                            <!--<div class="form-group">
+                                {{form.username.label_tag}}
+                                {{form.username}}
+                            </div>
+
+                            <div class="form-group">
+                                {{form.correo.label_tag}}
+                                {{form.correo}}
+                            </div>
+
+                            
+                            <div class="form-group">
+                                {{form.password.label_tag}}
+                                {{form.password}}
+                            </div>
+                        -->
+                        {% for m in form %}
+                        <div class="form-group">
+                            {{m.label_tag}}
+                            {{m}}
+                            {%if m.errors%}
+                            {{m.errors}}
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+                        <hr>
+                        <button type="submit" class="btn btn-primary">Registro</button>
+                        
+                    </form>
+                    <p class="register-text">¿Ya tienes cuenta? <a href="{% url 'login' %}">Inicia sesion aquí</a></p>
+
+                    </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</body>
+</html>

@@ -1,0 +1,32 @@
+body {
+    background-color: #ffe6cc;
+}
+
+div{
+    display: flex;
+    flex-direction: column;   /* uno debajo del otro */
+    align-items: center;      /* centrado horizontal */
+    justify-content: center;  /* centrado vertical */
+    height: 100vh;            /* ocupa toda la pantalla */
+    gap: 20px;                /* espacio entre botones */
+}
+Z
+button{
+    background-color: rgb(248, 155, 78);
+    color: white;
+    font-size: 30px;
+
+    width: 250px;             
+    height: 70px;             
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    background-color: #f97316;
+    transform: scale(1.08);
+}

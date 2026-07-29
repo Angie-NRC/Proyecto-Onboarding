@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Home - NRC{% endblock %}
+
+{% block cssAdicional %}
+<link rel="stylesheet" href="{% static 'css/home_Estilos.css' %}?v=2">
+{% endblock %}
+
+{% block contenidoPagina %}
+
+<section class="banner_main">
+    <img class="banner_img" src="{% static 'imagenes/image.png' %}" alt="Banner principal">
+    <div class="text-bg">
+        <h1>Onboarding Resources</h1>
+        <span>Texto importante</span>
+        <p>Todo lo necesario para saber en NRC</p>
+        <a href="{% url 'unidadesNRC' %}">Iniciar Ruta de aprendizaje</a>
+    </div>
+</section>
+
+
+
+
+{% endblock contenidoPagina %}
+

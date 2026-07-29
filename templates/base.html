@@ -1,0 +1,55 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>bases</title>
+
+  <link rel="stylesheet" href="{% static 'css/estiloBarraNavega.css' %}?v=6">
+
+  {% block cssAdicional %}{% endblock cssAdicional %}
+  <link rel="stylesheet" href="{% static 'css/home_Estilos.css' %}?v=99">
+</head>
+
+<body>
+
+{% block contenidoBarra %}
+<nav class="navbar">
+  <div class="container">
+    <a href="#" class="navbar-brand">
+      <img src="{% static 'imagenes/NRClogo.png' %}"  alt="Logo NRC">
+    </a>
+
+    <ul class="navbar-menu">
+      <li><a href="{% url 'home' %}">Home</a></li>
+      <li><a href="{% url 'registro_modulo_y_cursos' %}" >Crear Curso</a></li>
+      <li><a href="{% url 'unidadesNRC'  %}">Cursos Unidades </a> </li>
+      <li><a href="{% url 'unidadesNRC'  %}">Editar Cursos</a> </li>
+
+    </ul>
+
+    <ul class="navbar-menu navbar-menu-right">
+      <li>
+      
+
+        <form method="post" action="{% url 'salir' %}">
+          {% csrf_token %}
+          <button type="submit">Cerrar sesión</button>
+        </form>
+
+      </li>
+    </ul>
+  </div>
+</nav>
+{% endblock contenidoBarra %}
+
+<!-- CONTENIDO PRINCIPAL -->
+    {% block contenidoPagina %}
+    {% endblock contenidoPagina %}
+
+{% block javascriptPagina %}
+{% endblock javascriptPagina %}
+
+</body>
+</html>

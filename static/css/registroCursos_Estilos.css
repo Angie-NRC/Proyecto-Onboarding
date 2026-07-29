@@ -1,0 +1,325 @@
+
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #0a4275 0%, #063056 100%);
+    line-height: 1.6;
+}
+
+.contenedorForm {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 20px;
+    position: relative;
+}
+
+.contenedorForm::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: 
+        radial-gradient(circle at 20% 50%, rgba(242, 219, 24, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(242, 219, 24, 0.08) 0%, transparent 50%),
+        rgba(0, 0, 0, 0.3);
+    z-index: 1;
+}
+.formModuloCurso {
+    position: relative;
+    z-index: 2;
+    background: #ffffff;
+    width: 100%;
+    max-width: 1200px;
+    border-radius: 16px;
+    padding: 50px;
+    box-shadow: 
+        0 25px 50px rgba(0, 0, 0, 0.3),
+        0 10px 20px rgba(0, 0, 0, 0.2);
+    animation: fadeInUp 0.6s ease;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+.formModuloCurso h2 {
+    color: #0a4275;
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 30px;
+    position: relative;
+    padding-bottom: 12px;
+    display: inline-block;
+}
+.tituloCurso h2{
+    color: #ffffff;
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 30px;
+    position: relative;
+    padding-bottom: 12px;
+    display: inline-block;
+}
+
+.formModuloCurso h2::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg,  #f79147, #f79147 100%);
+    border-radius: 2px;
+}
+
+.formModuloCurso h3 {
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.formModuloCurso h3::before {
+    content: "";
+    width: 6px;
+    height: 24px;
+    background: #f79147;
+    border-radius: 3px;
+}
+
+.form-group,
+.nameModulo,
+.descripcionModulos {
+    margin-bottom: 24px;
+}
+
+label {
+    font-weight: 600;
+    font-size: 14px;
+    margin-bottom: 8px;
+    display: block;
+    color: #0a4275;
+    letter-spacing: 0.3px;
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+    padding: 14px 16px;
+    border-radius: 8px;
+    border: 2px solid #e0e0e0;
+    font-size: 15px;
+    font-family: inherit;
+    transition: all 0.3s ease;
+    background: #ffffff;
+}
+
+input:hover,
+select:hover,
+textarea:hover {
+    border-color: #c0c0c0;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: #f79147;
+    box-shadow: 0 0 0 4px rgba(74, 157, 251, 0.22);
+    background: #fffef8;
+}
+
+textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+.paisesUnidadesSelects {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-bottom: 40px;
+}
+.accionesCursos {
+    margin-bottom: 24px;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.cursoModulo {
+    border: 2px solid #e8e8e8;
+    padding: 28px;
+    border-radius: 12px;
+    margin-bottom: 24px;
+    background: linear-gradient(135deg, #0a4275 0%, #063056 100%);
+    transition: all 0.3s ease;
+}
+
+.cursoModulo:hover {
+    border-color: #f79147;
+    box-shadow: 0 8px 20px rgba(242, 219, 24, 0.12);
+}
+
+.videosContainer {
+    margin: 20px 0;
+}
+
+.videoWrapper {
+    margin-bottom: 16px;
+    position: relative;
+}
+
+.videoWrapper input[type="file"] {
+    border: 2px dashed #0a4275;
+    background: #f8f9fa;
+    cursor: pointer;
+    padding: 20px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.videoWrapper input[type="file"]:hover {
+    border-color: #f79147;
+    background: #fffef8;
+}
+
+button,
+.btnAgregarCurso,
+.btnAgregarVideo {
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: none;
+    font-family: inherit;
+    
+}
+
+.btnAgregarCurso {
+    background: transparent;
+    color: #0a4275;
+    border: 2px solid #0a4275;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 15px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btnAgregarCurso:hover {
+    background: #0a4275;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(10, 66, 117, 0.25);
+}
+
+.btnAgregarCurso:active {
+    transform: translateY(0);
+}
+
+.btnAgregarVideo {
+    background: transparent;
+    color: #ffffff;
+    border: 2px solid #f79147;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    
+}
+
+.btnAgregarVideo:hover {
+    background: #f79147;
+    color: #0a4275;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(242, 219, 24, 0.25);
+}
+
+.btn-success {
+    background: linear-gradient(135deg, #f79147 0%, #f79147 100%);
+    border: none;
+    color: #0a4275;
+    padding: 16px 40px;
+    font-size: 16px;
+    font-weight: 700;
+    border-radius: 10px;
+    margin-top: 40px;
+    width: 100%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 20px rgba(10, 66, 117, 0.3);
+}
+
+.btn-success:hover {
+    background: linear-gradient(135deg, #f79147 0%, #f79147 100%);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(242, 219, 24, 0.3);
+}
+
+.btn-success:active {
+    transform: translateY(-1px);
+}
+
+.textError,
+.text-danger {
+    color: #e74c3c;
+    font-size: 13px;
+    margin-top: 6px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.textError::before,
+.text-danger::before {
+    content: "⚠";
+    font-size: 14px;
+}
+
+.btnAgregarexamen {
+    background: transparent;
+    color: #ffffff;
+    border: 2px solid #f79147;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    
+}
+
+.btnAgregarexamen:hover {
+    background: #f79147;
+    color: #0a4275;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(242, 219, 24, 0.25);}
+
+.miModal{
+    background-origin: padding-box;
+    color: rgb(255, 0, 13);
+}
+
+.Quiz{
+    background-color: #fdeed6;
+    border-color: #f79147;
+    width: 900px;
+}
+
+.button2{
+  background-color: #f79147;
+  border-radius: 20px;
+  padding: 10px 20px;
+
+  display: block;
+  margin: 0 auto;;
+}

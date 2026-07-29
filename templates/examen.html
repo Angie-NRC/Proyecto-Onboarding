@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block cssAdicional %}
+<link rel="stylesheet" href="{% static 'css/examen.css' %}">
+{% endblock %}
+
+{% block contenidoPagina %}
+
+<div class="contenedor-examen">
+
+{% if examen %}
+
+    <h2 class="titulo-examen">
+        {{ examen.tituloExamen }}
+    </h2>
+
+    <form method="POST" class="formulario-examen">
+        {% csrf_token %}
+
+        {% for pregunta in examen.preguntas.all %}
+
+            <div class="bloque-pregunta">
+
+                <h4 class="texto-pregunta">
+                    {{ pregunta.textoPregunta }}
+                </h4>
+
+                {% for opcion in pregunta.opciones.all %}
+
+                    <label class="opcion-respuesta">
+
+                      <input type="radio"
+                        name="pregunta_{{ pregunta.id }}"
+                        value="{{ opcion.id }}"
+                        required>
+
+                        {{ opcion.textoOpcion }}
+
+                    </label>
+
+                    <br>
+
+                {% endfor %}
+
+            </div>
+
+        {% endfor %}
+
+        <button type="submit" class="boton-enviar">
+            Enviar
+        </button>
+
+    </form>
+
+{% endif %}
+
+</div>
+
+{% endblock %}

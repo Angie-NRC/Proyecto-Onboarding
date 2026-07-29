@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Registrar Curso{% endblock %}
+
+{% block cssAdicional %}
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'css/unidades_Estilos.css' %}?v=5">
+{% endblock cssAdicional %}
+
+{% block contenidoPagina %}
+
+<h1 class="tituloUnidades">Unidades</h1>
+
+
+
+
+
+<div class="contenidoUnidades">
+
+
+<div class="unidadesDisponibles">
+    {% for unidad in unidades %}
+        <div class="cardUnidades">
+            <div class="imagenesUnidad">
+                {% if unidad.icono %}
+                <img src="{{ unidad.icono.url }}" class="iconUnidades">
+                {% else %}
+                <img src="{% static 'imagenes/iconos/iconoPrueba.png' %}">
+                {% endif %}
+            </div>
+            <h2>{{ unidad.nombreUnidad }}</h2>
+
+
+            
+            <a href="{% url 'modulosUnidades' unidad.id %}">
+                <button class="verModulosUnidad">Ver modulos</button>
+            </a>
+        </div>
+    {% empty %}
+        <p>No hay unidades disponibles.</p>
+    {% endfor %}
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+{% endblock contenidoPagina %}
+
+
+{% block javascriptPagina %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script src="{% static 'js/nuevoCurso.js' %}?v=5"></script>
+{% endblock javascriptPagina %}
+
+    
+
+
+
+
+
+
+
+
+
+
+
+

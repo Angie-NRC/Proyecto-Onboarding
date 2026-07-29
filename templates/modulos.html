@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Registrar Curso{% endblock %}
+
+{% block cssAdicional %}
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'css/modulos_Estilos.css' %}?v=4">
+{% endblock cssAdicional %}
+
+{% block contenidoPagina %}
+
+<h1 class="tituloUnidades">Modulos  {{ unidad.nombreUnidad }}</h1>
+
+
+
+
+
+
+<div class="modulosDisponibles">
+    {% for modulo in modulos %}
+        <div class="cardModulos">
+            <div class="imagenCard">
+                {% if modulo.imagenModulo %}
+                <img class="iconModulos" src="{{ modulo.imagenModulo.url }}" alt="{{ modulo.nombre }}">
+                {% else %}
+                <img class="iconModulos" src="{% static 'imagenes/iconos/iconoPrueba.png' %}" alt="Imagen por defecto">
+                {% endif %}
+            </div>
+            <h2>{{ modulo.nombre }}</h2>
+            <p>{{ modulo.descripcionModulo }}</p>
+            <a href="{% url 'cursosModulos' modulo.id %}">
+                <button class="masCursos">Ver Curso</button>
+            </a>
+        </div>
+    {% empty %}
+        <p>No hay Modulos disponibles.</p>
+    {% endfor %}
+</div>
+
+
+
+
+
+
+
+
+
+{% endblock contenidoPagina %}
+
+
+{% block javascriptPagina %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script src="{% static 'js/nuevoCurso.js' %}?v=5"></script>
+{% endblock javascriptPagina %}
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,19 @@
+<!--*Se crea función include, esto se hace con el fin de que mas adelnate solo con una linea de codigo se puedan llamar todas las alertas de los mensaje positivos en caso
+de validación exitosa, y en caso de que no la alerta roja-->
+
+{%if messages%}
+            {%for m in messages%}
+            {%if m.tags == 'success'%}
+            <div class="alert alert-success">
+                {{m}}
+            </div>
+            {%else%}
+            <div class="alert alert-danger">
+                {{m}}
+            </div>
+            {%endif%}
+            {%endfor%}
+            {%endif%}
+        <div ass="row">
+        {% block content  %}
+        {% endblock%}

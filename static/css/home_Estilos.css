@@ -1,0 +1,113 @@
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+.banner_main {
+    position: relative;
+    width: 100%;
+    height: calc(100vh - 72px); 
+    display: flex;
+    align-items: center;       
+    justify-content: center;   
+    overflow: hidden;
+    font-family: 'Arial', sans-serif;
+    background-color: #0a4275;
+    text-align: center;
+}
+
+.banner_img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+}
+
+.banner_main::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    z-index: 2;
+}
+
+.text-bg {
+    position: relative;
+    z-index: 3;
+    color: #fff;
+    max-width: 800px;
+    line-height: 1.5;
+}
+
+.text-bg h1 {
+    font-size: 72px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #f97316;
+    
+}
+
+.text-bg span {
+    font-size: 36px;
+    font-weight: 600;
+    color: #ffffff;
+    display: block;
+    margin-bottom: 25px;
+}
+
+.text-bg p {
+    font-size: 22px;
+    line-height: 32px;
+    margin-bottom: 40px;
+    color: #e0e0e0;
+}
+
+.text-bg a {
+    padding: 16px 36px;
+    border: 2px solid #f97316;
+    color: #f97316;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 18px;
+    transition: all 0.3s ease;
+}
+
+.text-bg a:hover {
+    background-color: #f97316;
+    color: #0a4275;
+    border-color: #f97316;
+}
+
+@media (max-width: 992px) {
+    .text-bg h1 {
+        font-size: 54px;
+    }
+    .text-bg span {
+        font-size: 28px;
+    }
+    .text-bg p {
+        font-size: 18px;
+    }
+    .text-bg a {
+        font-size: 16px;
+        padding: 14px 28px;
+    }
+}
+
+@media (max-width: 576px) {
+    .text-bg h1 {
+        font-size: 42px;
+    }
+    .text-bg span {
+        font-size: 22px;
+    }
+    .text-bg p {
+        font-size: 16px;
+    }
+    .text-bg a {
+        font-size: 14px;
+        padding: 12px 24px;
+    }
+}

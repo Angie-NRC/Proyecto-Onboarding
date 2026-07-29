@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Registrar Módulo y Cursos{% endblock %}
+
+{% block cssAdicional %}
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'css/registroCursos_Estilos.css' %}?v=10">
+{% endblock cssAdicional %}
+
+{% block contenidoPagina %}
+
+<div class="contenedorForm">
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <div class="formModuloCurso">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <h2>Registro Módulo</h2>
+            <div class="nameModulo">
+                <label for="{{ modulo.nombre.id_for_label }}">{{ modulo.nombre.label }}</label>
+                {{ modulo.nombre }}
+                {% if modulo.nombre.errors %}
+                    <div class="textError">{{ modulo.nombre.errors }}</div>
+                {% endif %}
+            </div>
+
+            <div class="descripcionModulos">
+                <label for="{{ modulo.descripcionModulo.id_for_label }}">{{ modulo.descripcionModulo.label }}</label>
+                {{ modulo.descripcionModulo }}
+                {% if modulo.descripcionModulo.errors %}
+                    <div class="textError">{{ modulo.descripcionModulo.errors }}</div>
+                {% endif %}
+            </div>
+
+            <div class="paisesUnidadesSelects">
+
+                <div class="form-group">
+                    <label for="{{ modulo.paisModulos.id_for_label }}">{{ modulo.paisModulos.label }}</label>
+                    <select name="{{modulo.paisModulos.name}}" id="{{modulo.paisModulos.id_for_label}}" class="form-control">
+                        <option value="" selected disabled>Selecciona un país</option>
+                        {% for value, label in modulo.paisModulos.field.choices %}
+                          <option value="{{value}}" {%if modulo.pais.Modulos.value == value%}selected{% endif%}>{{label}}</option>
+                        {%endfor%}
+                    </select>
+                    {% if modulo.paisModulos.errors %}
+                        <div class="textError">{{ modulo.paisModulos.errors }}</div>
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label for="{{ modulo.unidadModulos.id_for_label }}">{{ modulo.unidadModulos.label }}</label>
+                    <select name="{{modulo.unidadModulos.name}}" id="{{modulo.unidadModulos.id_for_label}}" class="form-control">
+                        <option value="" selected disabled>Selecciona una unidad</option>
+                        {% for value, label in modulo.unidadModulos.field.choices %}
+                          <option value="{{value}}" {%if modulo.unidad.Modulos.value == value%}selected{% endif%}>{{label}}</option>
+                        {%endfor%}
+                    </select>
+                    {% if modulo.unidadModulos.errors %}
+                        <div class="textError">{{ modulo.unidadModulos.errors }}</div>
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label for="{{ modulo.imagenModulo.id_for_label }}">{{ modulo.imagenModulo.label }}</label>
+                    {{ modulo.imagenModulo }}
+                    {% if modulo.imagenModulo.errors %}
+                        <div class="textError">{{ modulo.imagenModulo.errors }}</div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- ================== REGISTRO CURSOS ================== -->
+            <h2>Registro Cursos</h2>
+            <div class="accionesCursos">
+                <button type="button" id="btnAgregarCurso" class="btnAgregarCurso">
+                    + Añadir curso
+                </button>
+            </div>
+
+            <div id="clasesFormset">
+                <!-- Curso inicial -->
+                <div class="cursoModulo" data-curso-index="0">
+                    <h3>Curso #1</h3>
+                    <input type="text" class="form-control" name="nombreCurso-0" placeholder="Nombre del curso">
+
+                    <div class="videosContainer">
+                        <div class="videoWrapper mb-2">
+                            <input type="file" class="form-control" name="videoSet-0[]">
+                        </div>
+                    </div>
+
+
+
+                </div>
+                </div>
+            <input type="hidden" id="totalCursos" name="total_cursos" value="1">
+
+            <button class="btn btn-success mt-4">Guardar el formulario de cursos y módulos</button>
+        </form>
+    </div>
+</div>
+
+{% endblock contenidoPagina %}
+
+{% block javascriptPagina %}
+<script src="{% static 'js/registroModulosCursos.js' %}?v=7"></script>
+{% endblock javascriptPagina %}

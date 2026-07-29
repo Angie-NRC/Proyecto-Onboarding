@@ -1,0 +1,132 @@
+.tituloUnidades {
+    text-align: center;
+    font-size: 28px;
+    font-weight: 700;
+    margin: 17px 0 7px;
+    color: #000000;
+}
+
+
+.videoActual {
+    width: 100%;
+    min-height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    background-color: #0f172a; 
+    padding: 30px 20px;
+}
+
+.videoPantalla {
+    width: 100%;
+    height: 75vh;
+    background-color: #000;
+    border-radius: 12px;
+    object-fit: contain;
+}
+
+
+.videoReproductor p {
+    margin-top: 20px;
+    font-size: 18px;
+    
+    font-weight: 600;
+}
+
+
+.button1{
+  display: block;
+  width: 200px;
+  margin: 40px auto;
+  padding: 16px 20px;
+  font-size: 16px;
+  font-weight: 700;
+  border-radius: 10px;
+  text-align: center;
+  text-decoration: none;
+  border: 2px solid #f79147;
+  color: #f79147;
+  background: transparent;
+  box-shadow: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+
+
+
+.contenedor {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.button2 {
+  display: inline-block;
+  padding: 10px 16px;
+  text-transform: uppercase;
+  background: #fff;
+  border: 2px solid #f79147;
+  border-radius: 999px;
+  position: relative;
+  z-index: 2;
+  overflow: hidden;
+  animation: fill 0.8s ease forwards;
+}
+
+
+.button2::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #f79147;
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: fillBg 0.8s ease forwards;
+  z-index: -1;
+}
+
+@keyframes fillBg {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes fill {
+  0% {
+    color: #f79147;
+  }
+  100% {
+    color: #0a4275;
+  }
+}
+
+.explosion {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+.explosion span {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: #f79147;
+  opacity: 0;
+  animation: burst 1.2s ease-out forwards;
+}
+
+
+
+@keyframes burst {
+  0% {
+    transform: translate(0, 0) scale(0.5);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--x), 250px) scale(1.2) rotate(720deg);
+    opacity: 0;
+  }
+}
