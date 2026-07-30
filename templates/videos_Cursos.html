@@ -1,45 +1,45 @@
 {% extends 'base.html' %}
 {% load static %}
- 
+
 {% block title %}Registrar Curso{% endblock %}
- 
+
 {% block cssAdicional %}
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet">
 <link rel="stylesheet" href="{% static 'css/videosReproductor_Estilos.css' %}?v=2">
 {% endblock cssAdicional %}
- 
+
 {% block contenidoPagina %}
- 
-<h1 class="tituloUnidades">  {{ video.nombreVideo }}</h1>
- 
- 
+
+<h1 class="tituloUnidades"> {{ video.nombreVideo }}</h1>
+
+
 <div class="videoActual">
     <div class="videoReproductor">
- 
+
         <video id="miVideo" controls class="videoPantalla">
             <source src="{{ video.video.url }}">
             Tu navegador no soporta video
         </video>
- 
-      {% if video_siguiente %}
-    <a id="btnSiguiente"
-       class="button1"
-       data-url="{% url 'videosCursos' video_siguiente.id %}">
-        Siguiente vídeo ▶ 
-    </a>
-{% else %}
+
+        {% if video_siguiente %}
+        <a id="btnSiguiente" class="button1" data-url="{% url 'videosCursos' video_siguiente.id %}">
+            Siguiente vídeo ▶
+        </a>
+        {% else %}
         <div class="contenedor">
-  <p class="button2">✔ ¡¡Curso finalizado!!</p>
+            <a href="{% url 'home' %}">
+                <p class="button2">✔ ¡¡Curso finalizado!!</p>
+            </a>
 
 
-  <div class="confetti">
-    <span></span><span></span><span></span><span></span><span></span>
-    <span></span><span></span><span></span><span></span><span></span>
-    <span></span><span></span><span></span><span></span><span></span>
-  </div>
-</div>
-{% endif %}
-        
+            <div class="confetti">
+                <span></span><span></span><span></span><span></span><span></span>
+                <span></span><span></span><span></span><span></span><span></span>
+                <span></span><span></span><span></span><span></span><span></span>
+            </div>
+        </div>
+        {% endif %}
+
     </div>
 </div>
 
@@ -49,82 +49,81 @@
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script src="{% static 'js/nuevoCurso.js' %}?v=5"></script>
 <script>
-document.addEventListener("DOMContentLoaded", function () { 
+    document.addEventListener("DOMContentLoaded", function () {
 
-    const video = document.getElementById("miVideo");
-    const boton = document.getElementById("btnSiguiente");
+        const video = document.getElementById("miVideo");
+        const boton = document.getElementById("btnSiguiente");
 
-    if (!video) return;
+        if (!video) return;
 
-    let desbloqueado = false;
-    let maxTiempoVisto = 0;
-    let usuarioBuscando = false;
-    let corrigiendo = false;
+        let desbloqueado = false;
+        let maxTiempoVisto = 0;
+        let usuarioBuscando = false;
+        let corrigiendo = false;
 
-    // Guardar progreso real
-    video.addEventListener("timeupdate", function () {
+        // Guardar progreso real
+        video.addEventListener("timeupdate", function () {
 
-        // Guardar el punto más avanzado visto
-        if (!usuarioBuscando && video.currentTime > maxTiempoVisto) {
-            maxTiempoVisto = video.currentTime;
-        }
-
-        // Activar botón al 20%
-        if (boton && video.duration) {
-
-            const porcentaje = (maxTiempoVisto / video.duration) * 100;
-
-            if (porcentaje >= 20 && !desbloqueado) {
-
-                desbloqueado = true;
-
-                boton.style.pointerEvents = "auto";
-                boton.href = boton.dataset.url;
-
-                boton.style.background = "#f79147";
-                boton.style.color = "#0a4275";
-                boton.style.boxShadow = "0 6px 20px rgba(255, 211, 91, 0.5)";
-                boton.style.cursor = "pointer";
+            // Guardar el punto más avanzado visto
+            if (!usuarioBuscando && video.currentTime > maxTiempoVisto) {
+                maxTiempoVisto = video.currentTime;
             }
-        }
-    });
 
-    // Bloquear adelantar pero permitir retroceder
-    video.addEventListener("seeking", function () {
+            // Activar botón al 20%
+            if (boton && video.duration) {
 
-        if (corrigiendo) return;
+                const porcentaje = (maxTiempoVisto / video.duration) * 100;
 
-        usuarioBuscando = true;
+                if (porcentaje >= 20 && !desbloqueado) {
 
-        // Si intenta adelantar
-        if (video.currentTime > maxTiempoVisto + 1 && !corrigiendo) {
+                    desbloqueado = true;
 
-            corrigiendo = true;
+                    boton.style.pointerEvents = "auto";
+                    boton.href = boton.dataset.url;
 
-            video.currentTime = maxTiempoVisto;
+                    boton.style.background = "#f79147";
+                    boton.style.color = "#0a4275";
+                    boton.style.boxShadow = "0 6px 20px rgba(255, 211, 91, 0.5)";
+                    boton.style.cursor = "pointer";
+                }
+            }
+        });
+
+        // Bloquear adelantar pero permitir retroceder
+        video.addEventListener("seeking", function () {
+
+            if (corrigiendo) return;
+
+            usuarioBuscando = true;
+
+            // Si intenta adelantar
+            if (video.currentTime > maxTiempoVisto + 1 && !corrigiendo) {
+
+                corrigiendo = true;
+
+                video.currentTime = maxTiempoVisto;
+
+                setTimeout(() => {
+                    corrigiendo = false;
+                }, 100);
+            }
+        });
+
+        // Fin del movimiento del seek
+        video.addEventListener("seeked", function () {
 
             setTimeout(() => {
-                corrigiendo = false;
-            }, 100);
-        }
+
+                usuarioBuscando = false;
+
+            }, 50);
+        });
     });
-
-    // Fin del movimiento del seek
-    video.addEventListener("seeked", function () {
-
-        setTimeout(() => {
-
-        usuarioBuscando = false;
-
-        }, 50);
-    });
-});
 </script>
 
 {% endblock javascriptPagina %}
 
 
- background: #f79147;
-  color: #0a4275;
-  box-shadow: 0 6px 20px rgba(255, 211, 91, 0.5);
-
+background: #f79147;
+color: #0a4275;
+box-shadow: 0 6px 20px rgba(255, 211, 91, 0.5);

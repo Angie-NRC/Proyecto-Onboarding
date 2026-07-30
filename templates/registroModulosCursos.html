@@ -13,11 +13,11 @@
 <div class="contenedorForm">
 
     {% if messages %}
-        {% for message in messages %}
-            <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">
-                {{ message }}
-            </div>
-        {% endfor %}
+    {% for message in messages %}
+    <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">
+        {{ message }}
+    </div>
+    {% endfor %}
     {% endif %}
 
     <div class="formModuloCurso">
@@ -29,7 +29,7 @@
                 <label for="{{ modulo.nombre.id_for_label }}">{{ modulo.nombre.label }}</label>
                 {{ modulo.nombre }}
                 {% if modulo.nombre.errors %}
-                    <div class="textError">{{ modulo.nombre.errors }}</div>
+                <div class="textError">{{ modulo.nombre.errors }}</div>
                 {% endif %}
             </div>
 
@@ -37,7 +37,7 @@
                 <label for="{{ modulo.descripcionModulo.id_for_label }}">{{ modulo.descripcionModulo.label }}</label>
                 {{ modulo.descripcionModulo }}
                 {% if modulo.descripcionModulo.errors %}
-                    <div class="textError">{{ modulo.descripcionModulo.errors }}</div>
+                <div class="textError">{{ modulo.descripcionModulo.errors }}</div>
                 {% endif %}
             </div>
 
@@ -45,33 +45,37 @@
 
                 <div class="form-group">
                     <label for="{{ modulo.paisModulos.id_for_label }}">{{ modulo.paisModulos.label }}</label>
-                    <select name="{{modulo.paisModulos.name}}" id="{{modulo.paisModulos.id_for_label}}" class="form-control">
+                    <select name="{{modulo.paisModulos.name}}" id="{{modulo.paisModulos.id_for_label}}"
+                        class="form-control">
                         <option value="" selected disabled>Selecciona un país</option>
                         {% for value, label in modulo.paisModulos.field.choices %}
-                          <option value="{{value}}" {%if modulo.pais.Modulos.value == value%}selected{% endif%}>{{label}}</option>
+                        <option value="{{value}}" {%if modulo.pais.Modulos.value==value%}selected{% endif%}>{{label}}
+                        </option>
                         {%endfor%}
                     </select>
                     {% if modulo.paisModulos.errors %}
-                        <div class="textError">{{ modulo.paisModulos.errors }}</div>
+                    <div class="textError">{{ modulo.paisModulos.errors }}</div>
                     {% endif %}
                 </div>
                 <div class="form-group">
                     <label for="{{ modulo.unidadModulos.id_for_label }}">{{ modulo.unidadModulos.label }}</label>
-                    <select name="{{modulo.unidadModulos.name}}" id="{{modulo.unidadModulos.id_for_label}}" class="form-control">
+                    <select name="{{modulo.unidadModulos.name}}" id="{{modulo.unidadModulos.id_for_label}}"
+                        class="form-control">
                         <option value="" selected disabled>Selecciona una unidad</option>
                         {% for value, label in modulo.unidadModulos.field.choices %}
-                          <option value="{{value}}" {%if modulo.unidad.Modulos.value == value%}selected{% endif%}>{{label}}</option>
+                        <option value="{{value}}" {%if modulo.unidad.Modulos.value==value%}selected{% endif%}>{{label}}
+                        </option>
                         {%endfor%}
                     </select>
                     {% if modulo.unidadModulos.errors %}
-                        <div class="textError">{{ modulo.unidadModulos.errors }}</div>
+                    <div class="textError">{{ modulo.unidadModulos.errors }}</div>
                     {% endif %}
                 </div>
                 <div class="form-group">
                     <label for="{{ modulo.imagenModulo.id_for_label }}">{{ modulo.imagenModulo.label }}</label>
                     {{ modulo.imagenModulo }}
                     {% if modulo.imagenModulo.errors %}
-                        <div class="textError">{{ modulo.imagenModulo.errors }}</div>
+                    <div class="textError">{{ modulo.imagenModulo.errors }}</div>
                     {% endif %}
                 </div>
             </div>
@@ -99,7 +103,7 @@
 
 
                 </div>
-                </div>
+            </div>
             <input type="hidden" id="totalCursos" name="total_cursos" value="1">
 
             <button class="btn btn-success mt-4">Guardar el formulario de cursos y módulos</button>
