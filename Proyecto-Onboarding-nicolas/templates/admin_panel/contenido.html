@@ -1,0 +1,85 @@
+{% extends 'admin_panel/base_panel.html' %}
+
+{% block title %}Contenido{% endblock %}
+
+{% block content %}
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Gestión de Contenido (Módulos y Cursos)</h1>
+        <div class="d-flex gap-2">
+            <a href="{% url 'registro_modulo_y_cursos' %}" class="btn btn-primary">+ Registrar Módulo Completo</a>
+            <a href="{% url 'panel_crear_curso' %}" class="btn btn-secondary">+ Añadir Curso</a>
+        </div>
+    </div>
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Módulo</th>
+                    <th>Imagen</th>
+                    <th>Cursos</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for modulo in modulos %}
+                <tr>
+                    <td>#{{ modulo.id }}</td>
+                    <td><strong>{{ modulo.nombre }}</strong></td>
+                    <td>
+                        {% if modulo.imagenModulo %}
+                            <img src="{{ modulo.imagenModulo.url }}" alt="Imagen Módulo" style="height: 40px; border-radius: 5px;">
+                        {% else %}
+                            <span class="text-muted">Sin imagen</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <div class="d-flex flex-column gap-3">
+                            {% for curso in modulo.curso_set.all %}
+                                <div style="background: #f8fafc; border: 1px solid #e2e8f0; padding: 12px; border-radius: 8px;">
+                                    <div class="d-flex align-items-center justify-content-between mb-2">
+                                        <strong style="color: #0a4275;">📖 {{ curso.nombreCurso }}</strong>
+                                        <div class="d-flex gap-1">
+                                            <a href="{% url 'panel_agregar_video' curso.id %}" class="btn btn-sm btn-primary" style="font-size: 11px; padding: 3px 8px;">+ Añadir Video</a>
+                                            <a href="{% url 'panel_editar_curso' curso.id %}" class="btn btn-sm btn-secondary" style="font-size: 11px; padding: 3px 8px;">Editar Curso</a>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Videos del curso -->
+                                    <div style="padding-left: 10px; border-left: 2px solid #cbd5e1;">
+                                        {% for video in curso.videos.all %}
+                                            <div class="d-flex align-items-center justify-content-between my-1" style="font-size: 12px;">
+                                                <span>🎬 {{ video.nombreVideo }}</span>
+                                                {% if video.examen %}
+                                                    <a href="{% url 'panel_editar_cuestionario' video.examen.id %}" style="color: #f97316; font-weight: 600; text-decoration: underline;">
+                                                        📝 Editar Cuestionario ({{ video.examen.preguntas.count }} preguntas)
+                                                    </a>
+                                                {% endif %}
+                                            </div>
+                                        {% empty %}
+                                            <span class="text-muted" style="font-size: 12px; font-style: italic;">Sin videos cargados aún.</span>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            {% empty %}
+                                <span class="text-muted">Sin cursos</span>
+                            {% endfor %}
+                        </div>
+                    </td>
+                    <td>
+                        <div class="d-flex gap-2">
+                            <a href="{% url 'panel_editar_modulo' modulo.id %}" class="btn btn-sm btn-primary">Editar Módulo</a>
+                            <a href="{% url 'panel_crear_curso' %}?modulo_id={{ modulo.id }}" class="btn btn-sm btn-secondary">+ Añadir Curso</a>
+                        </div>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5" class="text-center text-muted" style="padding: 30px;">No se encontraron módulos.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

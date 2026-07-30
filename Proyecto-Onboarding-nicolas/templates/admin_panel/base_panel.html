@@ -1,0 +1,90 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Panel de Administración{% endblock %} - NRC Onboarding</title>
+    <link rel="stylesheet" href="{% static 'css/admin_panel.css' %}?v=1">
+    {% block cssAdicional %}{% endblock %}
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+    <aside class="admin-sidebar">
+        <div class="sidebar-header">
+            <img src="{% static 'imagenes/NRClogo.png' %}" alt="Logo NRC">
+            <h2>Admin</h2>
+        </div>
+        <ul class="sidebar-menu">
+            <li>
+                <a href="{% url 'panel_dashboard' %}"
+                    class="{% if request.resolver_match.url_name == 'panel_dashboard' %}active{% endif %}">
+                    📊 Dashboard
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'panel_usuarios' %}"
+                    class="{% if request.resolver_match.url_name == 'panel_usuarios' or request.resolver_match.url_name == 'panel_editar_usuario' %}active{% endif %}">
+                    👥 Usuarios
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'panel_cuestionarios' %}"
+                    class="{% if request.resolver_match.url_name == 'panel_cuestionarios' or request.resolver_match.url_name == 'panel_editar_cuestionario' or request.resolver_match.url_name == 'panel_crear_cuestionario' %}active{% endif %}">
+                    📝 Cuestionarios
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'panel_resultados' %}"
+                    class="{% if request.resolver_match.url_name == 'panel_resultados' %}active{% endif %}">
+                    🏆 Resultados
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'registro_modulo_y_cursos' %}">Crear Curso</a>
+            </li>
+            <li>
+                <a href="{% url 'panel_contenido' %}"
+                    class="{% if request.resolver_match.url_name == 'panel_contenido' or request.resolver_match.url_name == 'panel_editar_modulo' or request.resolver_match.url_name == 'panel_editar_curso' %}active{% endif %}">
+                    📚 Contenido
+                </a>
+            </li>
+        </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="admin-main">
+        <header class="admin-header">
+            <div class="nav-left">
+                <a href="{% url 'home' %}">← Volver al sitio principal</a>
+            </div>
+            <div class="user-profile">
+                <span style="color: var(--text-main);">Hola, {{ request.user.username }}</span>
+                <form method="post" action="{% url 'salir' %}" style="margin: 0;">
+                    {% csrf_token %}
+                    <button type="submit" class="logout-btn">Cerrar sesión</button>
+                </form>
+            </div>
+        </header>
+
+        <section class="admin-content">
+            {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                <li class="alert {% if message.tags %}{{ message.tags }}{% endif %}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+
+            {% block content %}
+            {% endblock %}
+        </section>
+    </main>
+
+    {% block javascriptAdicional %}{% endblock %}
+</body>
+
+</html>

@@ -1,0 +1,30 @@
+{% extends 'admin_panel/base_panel.html' %}
+
+{% block title %}Crear Examen{% endblock %}
+
+{% block content %}
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Crear Nuevo Examen</h1>
+        <a href="{% url 'panel_cuestionarios' %}" class="btn btn-secondary">← Volver a lista</a>
+    </div>
+
+    <form method="post" class="form-card" style="max-width: 600px;">
+        {% csrf_token %}
+        
+        <div class="form-group">
+            <label for="{{ form.tituloExamen.id_for_label }}">{{ form.tituloExamen.label }}</label>
+            {{ form.tituloExamen }}
+            {{ form.tituloExamen.errors }}
+        </div>
+        
+        <div class="form-group">
+            <label for="{{ form.video.id_for_label }}">{{ form.video.label }}</label>
+            {{ form.video }}
+            {{ form.video.errors }}
+        </div>
+        
+        <div class="mt-4 pt-3" style="border-top: 1px solid var(--border-color);">
+            <button type="submit" class="btn btn-primary">Guardar y Añadir Preguntas →</button>
+        </div>
+    </form>
+{% endblock %}

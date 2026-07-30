@@ -1,0 +1,82 @@
+{% extends 'admin_panel/base_panel.html' %}
+
+{% block title %}Editar Usuario{% endblock %}
+
+{% block content %}
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Editar Usuario: {{ usuario.username }}</h1>
+        <a href="{% url 'panel_usuarios' %}" class="btn btn-secondary">← Volver a lista</a>
+    </div>
+
+    <form method="post" class="form-card" style="max-width: 800px;">
+        {% csrf_token %}
+        
+        <div class="d-flex gap-4">
+            <!-- Columna Auth -->
+            <div class="w-100">
+                <h3>Datos de Acceso</h3>
+                
+                <div class="form-group">
+                    <label for="{{ form_auth.username.id_for_label }}">{{ form_auth.username.label }}</label>
+                    {{ form_auth.username }}
+                    {{ form_auth.username.errors }}
+                </div>
+                
+                <div class="form-group">
+                    <label for="{{ form_auth.email.id_for_label }}">{{ form_auth.email.label }}</label>
+                    {{ form_auth.email }}
+                    {{ form_auth.email.errors }}
+                </div>
+                
+                <div class="form-group d-flex align-items-center gap-2 mt-4">
+                    {{ form_auth.is_staff }}
+                    <label for="{{ form_auth.is_staff.id_for_label }}" style="margin-bottom: 0;">{{ form_auth.is_staff.label }}</label>
+                </div>
+                
+                <div class="form-group d-flex align-items-center gap-2">
+                    {{ form_auth.is_active }}
+                    <label for="{{ form_auth.is_active.id_for_label }}" style="margin-bottom: 0;">{{ form_auth.is_active.label }}</label>
+                </div>
+            </div>
+            
+            <!-- Columna Perfil -->
+            <div class="w-100">
+                <h3>Datos de Perfil</h3>
+                
+                <div class="form-group">
+                    <label for="{{ form_perfil.nombreUser.id_for_label }}">{{ form_perfil.nombreUser.label }}</label>
+                    {{ form_perfil.nombreUser }}
+                    <div style="color: #ff4757; font-size: 12px; margin-top: 4px;">{{ form_perfil.nombreUser.errors }}</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="{{ form_perfil.cargo.id_for_label }}">{{ form_perfil.cargo.label }}</label>
+                    {{ form_perfil.cargo }}
+                    <div style="color: #ff4757; font-size: 12px; margin-top: 4px;">{{ form_perfil.cargo.errors }}</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="{{ form_perfil.ROL_idrol.id_for_label }}">{{ form_perfil.ROL_idrol.label }}</label>
+                    {{ form_perfil.ROL_idrol }}
+                    <div style="color: #ff4757; font-size: 12px; margin-top: 4px;">{{ form_perfil.ROL_idrol.errors }}</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="{{ form_perfil.paisUser.id_for_label }}">{{ form_perfil.paisUser.label }}</label>
+                    {{ form_perfil.paisUser }}
+                    <div style="color: #ff4757; font-size: 12px; margin-top: 4px;">{{ form_perfil.paisUser.errors }}</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="{{ form_perfil.Unidad_idUnidad.id_for_label }}">{{ form_perfil.Unidad_idUnidad.label }}</label>
+                    {{ form_perfil.Unidad_idUnidad }}
+                    <div style="color: #ff4757; font-size: 12px; margin-top: 4px;">{{ form_perfil.Unidad_idUnidad.errors }}</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="mt-4" style="border-top: 1px solid var(--border-color); padding-top: 20px;">
+            <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+        </div>
+    </form>
+{% endblock %}

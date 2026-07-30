@@ -1,108 +1,132 @@
-{% extends 'base.html' %}
+{% extends 'admin_panel/base_panel.html' %}
 {% load static %}
 
 {% block title %}Registrar Módulo y Cursos{% endblock %}
 
 {% block cssAdicional %}
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet">
-<link rel="stylesheet" href="{% static 'css/registroCursos_Estilos.css' %}?v=10">
+<link rel="stylesheet" href="{% static 'css/registroCursos_Estilos.css' %}?v=11">
+<style>
+    .form-card h2 {
+        color: var(--text-main);
+        border-bottom: 1px solid var(--border-color);
+        padding-bottom: 10px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+    .textError {
+        color: #ff4757;
+        font-size: 13px;
+        margin-top: 4px;
+    }
+    .cursoModulo {
+        background: rgba(0, 0, 0, 0.2);
+        border: 1px solid var(--border-color);
+        padding: 20px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+    }
+</style>
 {% endblock cssAdicional %}
 
-{% block contenidoPagina %}
-
-<div class="contenedorForm">
-
-
-
-    <div class="formModuloCurso">
-        <form method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-
-            <h2>Registro Módulo</h2>
-            <div class="nameModulo">
-                <label for="{{ modulo.nombre.id_for_label }}">{{ modulo.nombre.label }}</label>
-                {{ modulo.nombre }}
-                {% if modulo.nombre.errors %}
-                    <div class="textError">{{ modulo.nombre.errors }}</div>
-                {% endif %}
-            </div>
-
-            <div class="descripcionModulos">
-                <label for="{{ modulo.descripcionModulo.id_for_label }}">{{ modulo.descripcionModulo.label }}</label>
-                {{ modulo.descripcionModulo }}
-                {% if modulo.descripcionModulo.errors %}
-                    <div class="textError">{{ modulo.descripcionModulo.errors }}</div>
-                {% endif %}
-            </div>
-
-            <div class="paisesUnidadesSelects">
-
-                <div class="form-group">
-                    <label for="{{ modulo.paisModulos.id_for_label }}">{{ modulo.paisModulos.label }}</label>
-                    <select name="{{modulo.paisModulos.name}}" id="{{modulo.paisModulos.id_for_label}}" class="form-control">
-                        <option value="" selected disabled>Selecciona un país</option>
-                        {% for value, label in modulo.paisModulos.field.choices %}
-                          <option value="{{value}}" {%if modulo.pais.Modulos.value == value%}selected{% endif%}>{{label}}</option>
-                        {%endfor%}
-                    </select>
-                    {% if modulo.paisModulos.errors %}
-                        <div class="textError">{{ modulo.paisModulos.errors }}</div>
-                    {% endif %}
-                </div>
-                <div class="form-group">
-                    <label for="{{ modulo.unidadModulos.id_for_label }}">{{ modulo.unidadModulos.label }}</label>
-                    <select name="{{modulo.unidadModulos.name}}" id="{{modulo.unidadModulos.id_for_label}}" class="form-control">
-                        <option value="" selected disabled>Selecciona una unidad</option>
-                        {% for value, label in modulo.unidadModulos.field.choices %}
-                          <option value="{{value}}" {%if modulo.unidad.Modulos.value == value%}selected{% endif%}>{{label}}</option>
-                        {%endfor%}
-                    </select>
-                    {% if modulo.unidadModulos.errors %}
-                        <div class="textError">{{ modulo.unidadModulos.errors }}</div>
-                    {% endif %}
-                </div>
-                <div class="form-group">
-                    <label for="{{ modulo.imagenModulo.id_for_label }}">{{ modulo.imagenModulo.label }}</label>
-                    {{ modulo.imagenModulo }}
-                    {% if modulo.imagenModulo.errors %}
-                        <div class="textError">{{ modulo.imagenModulo.errors }}</div>
-                    {% endif %}
-                </div>
-            </div>
-
-            <!-- ================== REGISTRO CURSOS ================== -->
-            <h2>Registro Cursos</h2>
-            <div class="accionesCursos">
-                <button type="button" id="btnAgregarCurso" class="btnAgregarCurso">
-                    + Añadir curso
-                </button>
-            </div>
-
-            <div id="clasesFormset">
-                <!-- Curso inicial -->
-                <div class="cursoModulo" data-curso-index="0">
-                    <h3>Curso #1</h3>
-                    <input type="text" class="form-control" name="nombreCurso-0" placeholder="Nombre del curso">
-
-                    <div class="videosContainer">
-                        <div class="videoWrapper mb-2">
-                            <input type="file" class="form-control" name="videoSet-0[]">
-                        </div>
-                    </div>
-
-
-
-                </div>
-                </div>
-            <input type="hidden" id="totalCursos" name="total_cursos" value="1">
-
-            <button class="btn btn-success mt-4">Guardar el formulario de cursos y módulos</button>
-        </form>
-    </div>
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>Registrar Módulo y Cursos</h1>
+    <a href="{% url 'panel_contenido' %}" class="btn btn-secondary">← Volver a Contenido</a>
 </div>
 
-{% endblock contenidoPagina %}
+<div class="form-card">
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
 
-{% block javascriptPagina %}
+        <h2>Registro de Módulo</h2>
+        
+        <div class="form-group">
+            <label for="{{ modulo.nombre.id_for_label }}">{{ modulo.nombre.label }}</label>
+            {{ modulo.nombre }}
+            {% if modulo.nombre.errors %}
+            <div class="textError">{{ modulo.nombre.errors }}</div>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ modulo.descripcionModulo.id_for_label }}">{{ modulo.descripcionModulo.label }}</label>
+            {{ modulo.descripcionModulo }}
+            {% if modulo.descripcionModulo.errors %}
+            <div class="textError">{{ modulo.descripcionModulo.errors }}</div>
+            {% endif %}
+        </div>
+
+        <div class="d-flex gap-3">
+            <div class="form-group w-100">
+                <label for="{{ modulo.paisModulos.id_for_label }}">{{ modulo.paisModulos.label }}</label>
+                <select name="{{modulo.paisModulos.name}}" id="{{modulo.paisModulos.id_for_label}}" class="form-control">
+                    <option value="" selected disabled>Selecciona un país</option>
+                    {% for value, label in modulo.paisModulos.field.choices %}
+                    <option value="{{value}}" {% if modulo.paisModulos.value == value %}selected{% endif %}>{{label}}</option>
+                    {% endfor %}
+                </select>
+                {% if modulo.paisModulos.errors %}
+                <div class="textError">{{ modulo.paisModulos.errors }}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group w-100">
+                <label for="{{ modulo.unidadModulos.id_for_label }}">{{ modulo.unidadModulos.label }}</label>
+                <select name="{{modulo.unidadModulos.name}}" id="{{modulo.unidadModulos.id_for_label}}" class="form-control">
+                    <option value="" selected disabled>Selecciona una unidad</option>
+                    {% for value, label in modulo.unidadModulos.field.choices %}
+                    <option value="{{value}}" {% if modulo.unidadModulos.value == value %}selected{% endif %}>{{label}}</option>
+                    {% endfor %}
+                </select>
+                {% if modulo.unidadModulos.errors %}
+                <div class="textError">{{ modulo.unidadModulos.errors }}</div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="{{ modulo.imagenModulo.id_for_label }}">{{ modulo.imagenModulo.label }}</label>
+            {{ modulo.imagenModulo }}
+            {% if modulo.imagenModulo.errors %}
+            <div class="textError">{{ modulo.imagenModulo.errors }}</div>
+            {% endif %}
+        </div>
+
+        <!-- ================== REGISTRO CURSOS ================== -->
+        <h2>Registro de Cursos</h2>
+        <div class="mb-4">
+            <button type="button" id="btnAgregarCurso" class="btn btn-secondary">
+                + Añadir curso
+            </button>
+        </div>
+
+        <div id="clasesFormset">
+            <!-- Curso inicial -->
+            <div class="cursoModulo" data-curso-index="0">
+                <h3>Curso #1</h3>
+                <div class="form-group">
+                    <input type="text" class="form-control" name="nombreCurso-0" placeholder="Nombre del curso">
+                </div>
+
+                <div class="videosContainer">
+                    <label class="text-muted">Videos del curso:</label>
+                    <div class="videoWrapper mb-2">
+                        <input type="file" class="form-control" name="videoSet-0[]">
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <input type="hidden" id="totalCursos" name="total_cursos" value="1">
+
+        <div class="mt-4 pt-3" style="border-top: 1px solid var(--border-color);">
+            <button type="submit" class="btn btn-primary">Guardar Módulo y Cursos</button>
+        </div>
+    </form>
+</div>
+{% endblock %}
+
+{% block javascriptAdicional %}
 <script src="{% static 'js/registroModulosCursos.js' %}?v=7"></script>
-{% endblock javascriptPagina %}
+{% endblock %}

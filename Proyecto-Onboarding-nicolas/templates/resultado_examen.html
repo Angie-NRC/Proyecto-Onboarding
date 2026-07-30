@@ -1,0 +1,271 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Resultado del Examen{% endblock %}
+
+{% block cssAdicional %}
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+    body {
+        font-family: 'Inter', 'Segoe UI', sans-serif;
+        background-color: #f8fafc;
+        color: #334155;
+    }
+
+    .resultado-container {
+        max-width: 650px;
+        margin: 60px auto;
+        text-align: center;
+        padding: 0 20px;
+    }
+
+    .resultado-card {
+        background: #fff;
+        border-radius: 20px;
+        padding: 50px 40px;
+        margin-bottom: 30px;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+    }
+
+    .resultado-card.aprobado {
+        border-top: 6px solid #22c55e;
+    }
+
+    .resultado-card.reprobado {
+        border-top: 6px solid #ef4444;
+    }
+
+    .emoji-resultado {
+        font-size: 72px;
+        margin-bottom: 15px;
+        display: block;
+        animation: bounceIn 0.6s ease;
+    }
+
+    @keyframes bounceIn {
+        0% { transform: scale(0.3); opacity: 0; }
+        50% { transform: scale(1.1); }
+        70% { transform: scale(0.9); }
+        100% { transform: scale(1); opacity: 1; }
+    }
+
+    .puntaje-numero {
+        font-size: 86px;
+        font-weight: 800;
+        line-height: 1;
+        margin-bottom: 5px;
+        animation: countUp 0.8s ease forwards;
+    }
+
+    .aprobado .puntaje-numero { color: #16a34a; }
+    .reprobado .puntaje-numero { color: #dc2626; }
+
+    .puntaje-label {
+        font-size: 16px;
+        font-weight: 600;
+        color: #64748b;
+        margin-bottom: 25px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .resultado-titulo {
+        font-size: 32px;
+        font-weight: 800;
+        margin-bottom: 15px;
+        color: #0a4275;
+    }
+
+    .resultado-subtitulo {
+        color: #64748b;
+        font-size: 16px;
+        margin-bottom: 0;
+        line-height: 1.6;
+    }
+
+    /* Historial de intentos */
+    .historial-card {
+        background: #fff;
+        border: 1px solid #e2e8f0;
+        border-radius: 16px;
+        padding: 25px 30px;
+        margin-bottom: 30px;
+        text-align: left;
+        box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+    }
+
+    .historial-card h4 {
+        font-size: 14px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: #0a4275;
+        margin: 0 0 15px;
+        border-bottom: 1px solid #f1f5f9;
+        padding-bottom: 12px;
+    }
+
+    .historial-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 12px 0;
+        border-bottom: 1px solid #f1f5f9;
+    }
+    .historial-row:last-child { border-bottom: none; padding-bottom: 0; }
+    .historial-row.actual { 
+        background: #f8fafc; 
+        border-radius: 8px; 
+        padding: 12px 15px;
+        margin: 4px -15px;
+        border-bottom: none;
+    }
+
+    .badge-aprobado { background: #dcfce7; color: #166534; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; }
+    .badge-reprobado { background: #fee2e2; color: #991b1b; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; }
+
+    /* Botones de acción */
+    .acciones {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .btn-volver {
+        padding: 14px 28px;
+        border-radius: 12px;
+        font-weight: 600;
+        font-size: 15px;
+        border: 2px solid #e2e8f0;
+        background: #fff;
+        color: #475569;
+        text-decoration: none;
+        transition: all 0.2s;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    }
+    .btn-volver:hover { 
+        background: #f8fafc; 
+        border-color: #cbd5e1;
+        color: #1e293b; 
+    }
+
+    .btn-reintentar {
+        padding: 14px 28px;
+        border-radius: 12px;
+        font-weight: 600;
+        font-size: 15px;
+        background: #f97316;
+        color: white;
+        text-decoration: none;
+        transition: all 0.2s;
+        box-shadow: 0 4px 6px rgba(249, 115, 22, 0.2);
+    }
+    .btn-reintentar:hover { 
+        background: #ea580c; 
+        box-shadow: 0 6px 10px rgba(249, 115, 22, 0.3);
+        transform: translateY(-2px);
+    }
+
+    /* Confetti para cuando aprueba */
+    .confetti-wrap {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        pointer-events: none;
+        overflow: hidden;
+        z-index: 9999;
+    }
+    .confetti-wrap span {
+        position: absolute;
+        top: -10px;
+        width: 10px;
+        height: 20px;
+        border-radius: 3px;
+        animation: confettiFall 3s ease-in forwards;
+    }
+    @keyframes confettiFall {
+        to { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+    }
+</style>
+{% endblock %}
+
+{% block contenidoPagina %}
+
+{% if resultado.aprobado %}
+<div class="confetti-wrap" id="confetti"></div>
+{% endif %}
+
+<div class="resultado-container">
+
+    <!-- Tarjeta principal de resultado -->
+    <div class="resultado-card {% if resultado.aprobado %}aprobado{% else %}reprobado{% endif %}">
+        <span class="emoji-resultado">{% if resultado.aprobado %}🎉{% else %}😓{% endif %}</span>
+
+        <div class="puntaje-numero">{{ resultado.puntaje }}%</div>
+        <div class="puntaje-label">Intento #{{ resultado.intento }}</div>
+
+        {% if resultado.aprobado %}
+        <h2 class="resultado-titulo">¡Aprobaste!</h2>
+        <p class="resultado-subtitulo">Excelente trabajo. Has superado el umbral del 70% necesario para aprobar este examen.</p>
+        {% else %}
+        <h2 class="resultado-titulo">No Aprobaste</h2>
+        <p class="resultado-subtitulo">Necesitas alcanzar al menos un 70% para aprobar. ¡No te rindas, puedes volver a intentarlo!</p>
+        {% endif %}
+    </div>
+
+    <!-- Historial de todos los intentos -->
+    {% if todos_intentos.count > 1 %}
+    <div class="historial-card">
+        <h4>📊 Historial de Intentos</h4>
+        {% for intento in todos_intentos %}
+        <div class="historial-row {% if intento.id == resultado.id %}actual{% endif %}">
+            <span style="color: #64748b; font-weight: 500;">Intento #{{ intento.intento }}</span>
+            <span style="font-weight: 700; color: #1e293b;">{{ intento.puntaje }}%</span>
+            {% if intento.aprobado %}
+                <span class="badge-aprobado">✅ Aprobado</span>
+            {% else %}
+                <span class="badge-reprobado">❌ Reprobado</span>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- Botones de acción -->
+    <div class="acciones">
+        <a href="{% url 'videosCursos' video.id %}" class="btn-volver">← Volver al video</a>
+        <a href="{% url 'mi_progreso' %}" class="btn-volver">📊 Mi Progreso</a>
+        {% if resultado.aprobado %}
+            <span style="color: #16a34a; font-weight: 700; padding: 14px; background: #dcfce7; border-radius: 12px;">¡Examen completado! ✓</span>
+        {% else %}
+            <a href="{% url 'examen' video.id %}" class="btn-reintentar">🔁 Reintentar Examen</a>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}
+
+{% block javascriptPagina %}
+{% if resultado.aprobado %}
+<script>
+// Generar confetti al aprobar
+const container = document.getElementById('confetti');
+const colors = ['#22c55e', '#f97316', '#3b82f6', '#ec4899', '#8b5cf6'];
+for (let i = 0; i < 80; i++) {
+    const span = document.createElement('span');
+    span.style.left = Math.random() * 100 + 'vw';
+    span.style.background = colors[Math.floor(Math.random() * colors.length)];
+    span.style.animationDelay = (Math.random() * 2) + 's';
+    span.style.animationDuration = (2 + Math.random() * 2) + 's';
+    span.style.width = (6 + Math.random() * 8) + 'px';
+    span.style.height = (10 + Math.random() * 14) + 'px';
+    container.appendChild(span);
+}
+setTimeout(() => container.remove(), 5000);
+</script>
+{% endif %}
+{% endblock %}

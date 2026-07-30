@@ -1,0 +1,32 @@
+{% extends 'admin_panel/base_panel.html' %}
+
+{% block title %}Añadir Video a {{ curso.nombreCurso }}{% endblock %}
+
+{% block content %}
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Añadir Video a: {{ curso.nombreCurso }}</h1>
+        <a href="{% url 'panel_contenido' %}" class="btn btn-secondary">← Volver a lista</a>
+    </div>
+
+    <form method="post" enctype="multipart/form-data" class="form-card" style="max-width: 600px;">
+        {% csrf_token %}
+        
+        <div class="form-group">
+            <label for="nombreVideo">Nombre del Video (Título):</label>
+            <input type="text" name="nombreVideo" id="nombreVideo" class="form-control" placeholder="Ej: Clase 1 - Introducción">
+        </div>
+        
+        <div class="form-group">
+            <label for="video">Archivo de Video (MP4/WebM):</label>
+            <input type="file" name="video" id="video" class="form-control" accept="video/*" required>
+        </div>
+        
+        <p class="text-muted" style="font-size: 13px; margin-top: 10px;">
+            ℹ️ Al subir el video, se generará automáticamente su cuestionario para que le configures sus preguntas y respuestas.
+        </p>
+
+        <div class="mt-4 pt-3" style="border-top: 1px solid var(--border-color);">
+            <button type="submit" class="btn btn-primary">Subir Video y Configurar Cuestionario →</button>
+        </div>
+    </form>
+{% endblock %}

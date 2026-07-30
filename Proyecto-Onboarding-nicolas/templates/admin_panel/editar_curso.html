@@ -1,0 +1,56 @@
+{% extends 'admin_panel/base_panel.html' %}
+
+{% block title %}Editar Curso{% endblock %}
+
+{% block content %}
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Editar Curso: {{ curso.nombreCurso }}</h1>
+        <a href="{% url 'panel_contenido' %}" class="btn btn-secondary">← Volver a lista</a>
+    </div>
+
+    <form method="post" enctype="multipart/form-data" class="form-card" style="max-width: 600px;">
+        {% csrf_token %}
+        
+        <div class="form-group">
+            <label for="{{ form.nombreCurso.id_for_label }}">{{ form.nombreCurso.label }}</label>
+            {{ form.nombreCurso }}
+            {{ form.nombreCurso.errors }}
+        </div>
+        
+        <div class="form-group">
+            <label for="{{ form.moduloCurso.id_for_label }}">{{ form.moduloCurso.label }}</label>
+            {{ form.moduloCurso }}
+            {{ form.moduloCurso.errors }}
+        </div>
+        
+        <div class="form-group mt-4 pt-3" style="border-top: 1px solid var(--border-color);">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <h3 style="font-size: 16px; margin: 0;">🎬 Videos asignados a este curso ({{ curso.videos.count }})</h3>
+                <a href="{% url 'panel_agregar_video' curso.id %}" class="btn btn-sm btn-primary">+ Añadir Video Específico</a>
+            </div>
+            
+            <div class="mb-3">
+                {% for video in curso.videos.all %}
+                    <div class="d-flex align-items-center justify-content-between p-2 mb-2" style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px;">
+                        <span>🎬 <strong>{{ video.nombreVideo }}</strong></span>
+                        {% if video.examen %}
+                            <a href="{% url 'panel_editar_cuestionario' video.examen.id %}" class="btn btn-sm btn-secondary" style="font-size: 12px;">
+                                📝 Editar Cuestionario
+                            </a>
+                        {% endif %}
+                    </div>
+                {% empty %}
+                    <p class="text-muted" style="font-size: 14px; font-style: italic;">No hay videos en este curso.</p>
+                {% endfor %}
+            </div>
+
+            <label for="nuevos_videos">Subir Videos adicionales (opcional):</label>
+            <input type="file" name="nuevos_videos" id="nuevos_videos" class="form-control" multiple accept="video/*">
+            <small class="text-muted">Puedes seleccionar uno o varios videos. Cada video creará su propio cuestionario.</small>
+        </div>
+
+        <div class="mt-4 pt-3" style="border-top: 1px solid var(--border-color);">
+            <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+        </div>
+    </form>
+{% endblock %}

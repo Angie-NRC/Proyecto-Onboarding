@@ -1,0 +1,58 @@
+{% extends 'admin_panel/base_panel.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+    <h1>Dashboard</h1>
+
+    <div class="card-grid">
+        <div class="kpi-card">
+            <div class="kpi-title">Total Usuarios</div>
+            <div class="kpi-value">{{ total_usuarios }}</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-title">Módulos Activos</div>
+            <div class="kpi-value">{{ total_modulos }}</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-title">Exámenes</div>
+            <div class="kpi-value">{{ total_examenes }}</div>
+        </div>
+    </div>
+
+    <h3>Últimos Resultados</h3>
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Usuario</th>
+                    <th>Examen</th>
+                    <th>Puntaje</th>
+                    <th>Intento</th>
+                    <th>Estado</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for res in ultimos_resultados %}
+                <tr>
+                    <td>{{ res.usuario.nombreUser }}</td>
+                    <td>{{ res.examen.tituloExamen }}</td>
+                    <td>{{ res.puntaje }}%</td>
+                    <td>{{ res.intento }}</td>
+                    <td>
+                        {% if res.aprobado %}
+                            <span class="badge success">Aprobado</span>
+                        {% else %}
+                            <span class="badge danger">Reprobado</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5" class="text-center text-muted" style="padding: 30px;">No hay resultados recientes.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

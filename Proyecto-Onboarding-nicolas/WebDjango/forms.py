@@ -174,3 +174,86 @@ class VideoClase_Form(forms.ModelForm):
         help_texts = {
             'video': 'Sube un video en formato MP4 o similar.',
         }
+
+# FORMS DEL PANEL DE ADMIN
+from django.forms import inlineformset_factory
+from .models import Examen, PreguntaExamen, OpcionExamen
+
+class EditarUsuarioForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'is_staff', 'is_active']
+        labels = {
+            'username': 'Nombre de usuario',
+            'email': 'Correo electrónico',
+            'is_staff': 'Es Staff (Acceso al panel)',
+            'is_active': 'Activo',
+        }
+        widgets = {
+            'username': forms.TextInput(attrs={'class': 'form-control'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control'}),
+            'is_staff': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'is_active': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+        }
+
+class EditarPerfilForm(forms.ModelForm):
+    class Meta:
+        model = CustomUser
+        fields = ['nombreUser', 'cargo', 'ROL_idrol', 'paisUser', 'Unidad_idUnidad']
+        labels = {
+            'nombreUser': 'Nombre completo',
+            'cargo': 'Cargo',
+            'ROL_idrol': 'Rol',
+            'paisUser': 'País',
+            'Unidad_idUnidad': 'Unidad',
+        }
+        widgets = {
+            'nombreUser': forms.TextInput(attrs={'class': 'form-control'}),
+            'cargo': forms.TextInput(attrs={'class': 'form-control'}),
+            'ROL_idrol': forms.Select(attrs={'class': 'form-control'}),
+            'paisUser': forms.Select(attrs={'class': 'form-control'}),
+            'Unidad_idUnidad': forms.Select(attrs={'class': 'form-control'}),
+        }
+
+class ExamenForm(forms.ModelForm):
+    class Meta:
+        model = Examen
+        fields = ['tituloExamen', 'video']
+        widgets = {
+            'tituloExamen': forms.TextInput(attrs={'class': 'form-control'}),
+            'video': forms.Select(attrs={'class': 'form-control'}),
+        }
+
+class PreguntaExamenForm(forms.ModelForm):
+    class Meta:
+        model = PreguntaExamen
+        fields = ['textoPregunta']
+        widgets = {
+            'textoPregunta': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Pregunta...'}),
+        }
+
+class OpcionExamenForm(forms.ModelForm):
+    class Meta:
+        model = OpcionExamen
+        fields = ['textoOpcion', 'opcionCorrecta']
+        widgets = {
+            'textoOpcion': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Opción...'}),
+            'opcionCorrecta': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+        }
+
+PreguntaFormSet = inlineformset_factory(
+    Examen, PreguntaExamen, form=PreguntaExamenForm, extra=1, can_delete=True
+)
+
+OpcionFormSet = inlineformset_factory(
+    PreguntaExamen, OpcionExamen, form=OpcionExamenForm, extra=4, can_delete=True
+)
+
+class EditarCursoForm(forms.ModelForm):
+    class Meta:
+        model = Curso
+        fields = ['nombreCurso', 'moduloCurso']
+        widgets = {
+            'nombreCurso': forms.TextInput(attrs={'class': 'form-control'}),
+            'moduloCurso': forms.Select(attrs={'class': 'form-control'}),
+        }
