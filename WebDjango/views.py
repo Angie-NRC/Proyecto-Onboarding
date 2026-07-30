@@ -16,8 +16,6 @@ from django.db import transaction
 # Página principal (home)
 def home(request):
     return render(request, 'home.html')
-
-
 # Login de usuarios
 def login(request):
     if request.method == 'POST':
@@ -34,8 +32,6 @@ def login(request):
             messages.error(request, 'Datos incorrectos')
 
     return render(request, 'user/login.html')
-
-
 # Registro de usuarios
 def registro(request):
     form = Registro(request.POST or None)
@@ -55,15 +51,11 @@ def registro(request):
             return redirect('home')
 
     return render(request, 'user/registro.html', {'form': form})
-
-
-
 # Cerrar sesión Usuarios 
 @require_POST
 def salir(request):
     logout(request)
     return redirect('login')
-
 
 # Registro de cursos/Modulos/Examenes 
 
@@ -102,16 +94,6 @@ def registro_modulo_y_cursos(request):
         {'modulo': modulo_form}
     )
 
-
-
-
-
-
-
-
-
-
-
 # SE MIRAN LAS UNIDADES DISPONIBLES 
 
 def unidadesNRC(request):
@@ -119,8 +101,6 @@ def unidadesNRC(request):
     return render(request, "unidadesNrc.html", {
         "unidades": unidades
     })
-
-
 
 # SE MIRAN LOS MODULOS POR UNIDADES 
 def modulosUnidades(request, unidad_id):
@@ -132,8 +112,6 @@ def modulosUnidades(request, unidad_id):
         'modulos': modulos
     })
 
-
-
 # SE MIRAN LAS  CURSOS POR MODULOS 
 def cursosModulos(request, modulo_id):
     modulo = get_object_or_404(Modulo, id=modulo_id)
@@ -143,10 +121,6 @@ def cursosModulos(request, modulo_id):
         'modulo': modulo,
         'cursos': cursos
     })
-
-
-
-
 
 # VIDEOS CURSOS 
 
