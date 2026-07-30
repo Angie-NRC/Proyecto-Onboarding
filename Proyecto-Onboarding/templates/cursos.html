@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load static %}
+ 
+{% block title %}Registrar Curso{% endblock %}
+ 
+{% block cssAdicional %}
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet">
+
+<link rel="stylesheet"
+      href="{% static 'css/cursos_Estilos.css' %}?v=10">
+
+{% endblock cssAdicional %}
+ 
+{% block contenidoPagina %}
+
+<div class="listaDeCursos">
+    <div class="cursosDisponibles">
+        <div class="titulosCursos">
+            <h2 class="nombreCurso">{{ modulo.nombre }}</h2>
+            <h2 class="progreso">Progresos</h2>
+            <h2 class="Intententos">Intentos</h2>
+        </div>
+        {% for curso in modulo.curso_set.all %}
+            <div class="cursosTitulo">
+                <h2>{{ curso.nombreCurso }}</h2>
+            </div>
+            <ul>
+                {% for video in curso.videos.all %}
+                    <li>
+                        <a href="{% url 'videosCursos' video.id %}">
+                            {{ video.nombreVideo }}
+                        </a>
+
+                        
+                        <a href="{% url 'examen' video.id %}">
+                            Ir al cuestionarioo
+                        </a>
+
+                    </li>
+
+                {% empty %}
+
+                    <li>
+                        Este curso no tiene videos
+                    </li>
+
+                {% endfor %}
+
+            </ul>
+
+        {% empty %}
+
+            <p style="padding:40px; text-align:center; color:#999;">
+                No hay cursos disponibles
+            </p>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+{% endblock contenidoPagina %}
+ 
+{% block javascriptPagina %}
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+<script src="{% static 'js/nuevoCurso.js' %}?v=5"></script>
+
+{% endblock javascriptPagina %}

@@ -1,0 +1,109 @@
+/* TITULO */
+h1 {
+  font-size: 80px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #f97316;
+  text-align: center;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+/* FONDO */
+body {
+  background-color: #0a1a38;
+  margin: 0;
+  padding: 0;
+}
+
+/* GRID PRINCIPAL (RESPONSIVE) */
+.unidadesDisponibles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  padding: 50px;
+  gap: 40px;
+  margin: 30px auto;
+  max-width: 1400px;
+}
+
+/* TARJETAS */
+.cardUnidades {
+  background: white;
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  text-align: center;
+  transition: all 0.3s ease;
+  min-height: 320px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.cardUnidades:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* IMAGEN */
+.imagenesUnidad {
+  width: 100%;
+  height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.iconUnidades {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+/* TEXTO */
+.cardUnidades h2 {
+  font-size: 1.4rem;
+  margin: 15px 0;
+  color: #333;
+  font-weight: bold;
+}
+
+/* BOTÓN */
+.verModulosUnidad {
+  background: #f79147;
+  color: white;
+  font-weight: bold;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.verModulosUnidad:hover {
+  background: #0056b3;
+  transform: scale(1.05);
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  h1 {
+    font-size: 50px;
+  }
+}
+
+@media (max-width: 600px) {
+  h1 {
+    font-size: 35px;
+  }
+
+  .unidadesDisponibles {
+    padding: 20px;
+    gap: 20px;
+  }
+
+  .cardUnidades {
+    padding: 20px;
+  }
+}
