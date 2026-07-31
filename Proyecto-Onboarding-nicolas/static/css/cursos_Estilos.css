@@ -35,7 +35,7 @@ body {
 
 .titulosCursos {
     display: grid;
-    grid-template-columns: 2.5fr 1fr 1fr;
+    grid-template-columns: 2.5fr 1fr 1fr 1.5fr;
     gap: 25px;
     align-items: center;
     padding: 40px 50px;
@@ -83,8 +83,8 @@ body {
 .cursosDisponibles li {
     padding: 26px 50px;
     border-bottom: 1px solid var(--borde);
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 2.5fr 1fr 1fr 1.5fr;
     align-items: center;
     gap: 25px;
     background: #ffffff;

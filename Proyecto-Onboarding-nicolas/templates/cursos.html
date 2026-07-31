@@ -19,28 +19,47 @@
             <h2 class="nombreCurso">{{ modulo.nombre }}</h2>
             <h2 class="progreso">Progresos</h2>
             <h2 class="Intententos">Intentos</h2>
+            <div></div>
         </div>
-        {% for curso in modulo.curso_set.all %}
+        {% for c in cursos_data %}
             <div class="cursosTitulo">
-                <h2>{{ curso.nombreCurso }}</h2>
+                <h2>{{ c.curso.nombreCurso }}</h2>
             </div>
             <ul>
-                {% for video in curso.videos.all %}
+                {% for video_item in c.videos_data %}
                     <li>
-                        <a href="{% url 'videosCursos' video.id %}">
-                            {{ video.nombreVideo }}
+                        <a href="{% url 'videosCursos' video_item.id %}">
+                            {{ video_item.nombreVideo }}
                         </a>
 
-                        
-                        <a href="{% url 'examen' video.id %}">
-                            Ir al cuestionarioo
-                        </a>
+                        <div style="text-align: center; color: #1e293b; font-weight: 500;">
+                            {% if video_item.visto %}
+                                <span style="color: #22c55e;">✅ Visto</span>
+                            {% else %}
+                                <span style="color: #94a3b8;">Pendiente</span>
+                            {% endif %}
+                        </div>
+
+                        <div style="text-align: center; color: #1e293b; font-weight: 500;">
+                            <span>{{ video_item.intentos }}</span>
+                            {% if video_item.aprobado %}
+                                <span style="color: #22c55e; font-size: 12px; margin-left: 4px;">(Aprobado)</span>
+                            {% endif %}
+                        </div>
+
+                        {% if video_item.tiene_examen %}
+                            <a href="{% url 'examen' video_item.id %}">
+                                Ir al cuestionario
+                            </a>
+                        {% else %}
+                            <span style="color: #94a3b8; font-size: 14px; margin-left: 10px; display: inline-block; text-align: right;">Cuestionario no disponible</span>
+                        {% endif %}
 
                     </li>
 
                 {% empty %}
 
-                    <li>
+                    <li style="grid-column: 1 / -1; justify-content: center;">
                         Este curso no tiene videos
                     </li>
 

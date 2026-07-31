@@ -121,9 +121,57 @@ def cursosModulos(request, modulo_id):
     modulo = get_object_or_404(Modulo, id=modulo_id)
     cursos = Curso.objects.filter(moduloCurso=modulo)  
     
+    cursos_data = []
+    custom_user = None
+    if request.user.is_authenticated:
+        custom_user, _ = CustomUser.objects.get_or_create(nombreUser=request.user.username)
+        
+    for curso in cursos:
+        videos_ordenados = list(curso.videos.order_by('ordenVideos'))
+        
+        videos_vistos_count = 0
+        if custom_user:
+            try:
+                progreso = ProgresoCurso.objects.get(usuario=custom_user, curso=curso)
+                ultimo_video = progreso.ultimo_video
+                if ultimo_video in videos_ordenados:
+                    videos_vistos_count = videos_ordenados.index(ultimo_video) + 1
+            except ProgresoCurso.DoesNotExist:
+                pass
+            
+        videos_data = []
+        for idx, video in enumerate(videos_ordenados):
+            visto = idx < videos_vistos_count
+            
+            intentos = 0
+            aprobado = False
+            tiene_examen = hasattr(video, 'examen') and video.examen.preguntas.count() > 0
+            
+            if custom_user and hasattr(video, 'examen'):
+                resultados = ResultadoCuestionario.objects.filter(
+                    usuario=custom_user, examen=video.examen
+                )
+                intentos = resultados.count()
+                aprobado = resultados.filter(aprobado=True).exists()
+                
+            videos_data.append({
+                'id': video.id,
+                'nombreVideo': video.nombreVideo,
+                'visto': visto,
+                'intentos': intentos,
+                'aprobado': aprobado,
+                'tiene_examen': tiene_examen,
+                'video_obj': video
+            })
+            
+        cursos_data.append({
+            'curso': curso,
+            'videos_data': videos_data
+        })
+    
     return render(request, 'cursos.html', {
         'modulo': modulo,
-        'cursos': cursos
+        'cursos_data': cursos_data
     })
 
 # VIDEOS CURSOS 
