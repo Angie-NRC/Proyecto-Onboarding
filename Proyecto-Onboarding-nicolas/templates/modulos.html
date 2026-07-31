@@ -1,74 +1,180 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Registrar Curso{% endblock %}
+{% block title %}{{ unidad.nombreUnidad }} — NRC Onboarding{% endblock %}
 
 {% block cssAdicional %}
-<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet">
-<link rel="stylesheet" href="{% static 'css/modulos_Estilos.css' %}?v=4">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+body { background: #f3f6fb; font-family: 'Inter', sans-serif; }
+
+.pg-wrapper {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 36px 24px 64px;
+}
+
+/* Encabezado de unidad */
+.page-header {
+    margin-bottom: 32px;
+}
+
+.page-header h1 {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #0a4275;
+    margin: 0 0 6px;
+}
+
+.page-header p {
+    font-size: 0.9rem;
+    color: #64748b;
+    margin: 0;
+}
+
+/* Grid de módulos */
+.modulos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+/* Tarjeta */
+.modulo-card {
+    background: #fff;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.05);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.modulo-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(10,66,117,0.1);
+}
+
+/* Imagen */
+.modulo-img {
+    width: 100%;
+    height: 170px;
+    overflow: hidden;
+    background: #eef3f9;
+}
+
+.modulo-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s;
+}
+
+.modulo-card:hover .modulo-img img { transform: scale(1.04); }
+
+/* Contenido */
+.modulo-body {
+    padding: 18px 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.modulo-body h2 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #0a4275;
+    margin: 0 0 8px;
+    line-height: 1.35;
+}
+
+.modulo-body p {
+    font-size: 0.84rem;
+    color: #64748b;
+    margin: 0 0 18px;
+    line-height: 1.55;
+    flex: 1;
+}
+
+/* Separador naranja en la parte superior */
+.modulo-card::before {
+    content: "";
+    display: block;
+    height: 3px;
+    background: #f97316;
+}
+
+/* Botón */
+.btn-modulo {
+    display: block;
+    background: #0a4275;
+    color: #fff;
+    text-decoration: none;
+    text-align: center;
+    font-size: 0.875rem;
+    font-weight: 600;
+    padding: 10px 20px;
+    border-radius: 8px;
+    transition: background 0.2s;
+    border: none;
+    cursor: pointer;
+    font-family: 'Inter', inherit;
+    width: 100%;
+}
+
+.btn-modulo:hover { background: #f97316; }
+
+/* Empty */
+.modulos-grid > p {
+    grid-column: 1/-1;
+    text-align: center;
+    color: #94a3b8;
+    padding: 60px 0;
+}
+
+@media (max-width: 640px) {
+    .pg-wrapper { padding: 20px 14px 48px; }
+    .page-header h1 { font-size: 1.3rem; }
+}
+</style>
 {% endblock cssAdicional %}
 
 {% block contenidoPagina %}
 
-<h1 class="tituloUnidades">Modulos  {{ unidad.nombreUnidad }}</h1>
+<div class="pg-wrapper">
 
+    <div class="page-header">
+        <h1>{{ unidad.nombreUnidad }}</h1>
+        <p>Selecciona un modulo para ver los cursos disponibles</p>
+    </div>
 
-
-
-
-
-<div class="modulosDisponibles">
-    {% for modulo in modulos %}
-        <div class="cardModulos">
-            <div class="imagenCard">
+    <div class="modulos-grid">
+        {% for modulo in modulos %}
+        <div class="modulo-card">
+            <div class="modulo-img">
                 {% if modulo.imagenModulo %}
-                <img class="iconModulos" src="{{ modulo.imagenModulo.url }}" alt="{{ modulo.nombre }}">
+                <img src="{{ modulo.imagenModulo.url }}" alt="{{ modulo.nombre }}">
                 {% else %}
-                <img class="iconModulos" src="{% static 'imagenes/iconos/iconoPrueba.png' %}" alt="Imagen por defecto">
+                <img src="{% static 'imagenes/iconos/iconoPrueba.png' %}" alt="Imagen">
                 {% endif %}
             </div>
-            <h2>{{ modulo.nombre }}</h2>
-            <p>{{ modulo.descripcionModulo }}</p>
-            <a href="{% url 'cursosModulos' modulo.id %}">
-                <button class="masCursos">Ver Curso</button>
-            </a>
+            <div class="modulo-body">
+                <h2>{{ modulo.nombre }}</h2>
+                <p>{{ modulo.descripcionModulo }}</p>
+                <a href="{% url 'cursosModulos' modulo.id %}" class="btn-modulo">
+                    Ver cursos
+                </a>
+            </div>
         </div>
-    {% empty %}
-        <p>No hay Modulos disponibles.</p>
-    {% endfor %}
+        {% empty %}
+        <p>No hay modulos disponibles para esta unidad.</p>
+        {% endfor %}
+    </div>
+
 </div>
-
-
-
-
-
-
-
-
 
 {% endblock contenidoPagina %}
 
-
-{% block javascriptPagina %}
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-<script src="{% static 'js/nuevoCurso.js' %}?v=5"></script>
-{% endblock javascriptPagina %}
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+{% block javascriptPagina %}{% endblock javascriptPagina %}

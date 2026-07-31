@@ -1,76 +1,172 @@
-{% extends 'base.html' %}Unidades
+{% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Registrar Curso{% endblock %}
+{% block title %}Unidades de Aprendizaje — NRC Onboarding{% endblock %}
 
 {% block cssAdicional %}
-<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet">
-<link rel="stylesheet" href="{% static 'css/unidades_Estilos.css' %}?v=5">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+body { background: #f3f6fb; font-family: 'Inter', sans-serif; }
+
+.pg-wrapper {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 36px 24px 64px;
+}
+
+.page-header {
+    margin-bottom: 32px;
+}
+
+.page-header h1 {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #0a4275;
+    margin: 0 0 6px;
+}
+
+.page-header p {
+    font-size: 0.9rem;
+    color: #64748b;
+    margin: 0;
+}
+
+/* Grid */
+.unidades-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 20px;
+}
+
+/* Tarjeta */
+.unidad-card {
+    background: #fff;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.05);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.unidad-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(10,66,117,0.1);
+}
+
+.unidad-card::before {
+    content: "";
+    display: block;
+    height: 3px;
+    background: #f97316;
+}
+
+/* Imagen */
+.unidad-img {
+    width: 100%;
+    height: 160px;
+    background: #eef3f9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding: 16px;
+}
+
+.unidad-img img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    transition: transform 0.3s;
+}
+
+.unidad-card:hover .unidad-img img { transform: scale(1.04); }
+
+/* Cuerpo */
+.unidad-body {
+    padding: 16px 20px 20px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.unidad-body h2 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #0a4275;
+    margin: 0 0 16px;
+    line-height: 1.35;
+}
+
+/* Botón */
+.btn-unidad {
+    display: block;
+    background: #0a4275;
+    color: #fff;
+    text-decoration: none;
+    text-align: center;
+    font-size: 0.875rem;
+    font-weight: 600;
+    padding: 10px 20px;
+    border-radius: 8px;
+    transition: background 0.2s;
+    border: none;
+    cursor: pointer;
+    font-family: 'Inter', inherit;
+    margin-top: auto;
+}
+
+.btn-unidad:hover { background: #f97316; }
+
+.unidades-grid > p {
+    grid-column: 1/-1;
+    text-align: center;
+    color: #94a3b8;
+    padding: 60px 0;
+}
+
+@media (max-width: 640px) {
+    .pg-wrapper { padding: 20px 14px 48px; }
+    .page-header h1 { font-size: 1.3rem; }
+}
+</style>
 {% endblock cssAdicional %}
 
 {% block contenidoPagina %}
 
-<h1 class="tituloUnidades">Unidades</h1>
+<div class="pg-wrapper">
 
+    <div class="page-header">
+        <h1>Unidades de Aprendizaje</h1>
+        <p>Selecciona una unidad para explorar los modulos disponibles</p>
+    </div>
 
-
-
-x
-<div class="contenidoUnidades">
-
-
-<div class="unidadesDisponibles">
-    {% for unidad in unidades %}
-        <div class="cardUnidades">
-            <div class="imagenesUnidad">
+    <div class="unidades-grid">
+        {% for unidad in unidades %}
+        <div class="unidad-card">
+            <div class="unidad-img">
                 {% if unidad.icono %}
-                <img src="{{ unidad.icono.url }}" class="iconUnidades">
+                <img src="{{ unidad.icono.url }}" alt="{{ unidad.nombreUnidad }}">
                 {% else %}
-                <img src="{% static 'imagenes/iconos/iconoPrueba.png' %}">
+                <img src="{% static 'imagenes/iconos/iconoPrueba.png' %}" alt="Icono">
                 {% endif %}
             </div>
-            <h2>{{ unidad.nombreUnidad }}</h2>
-
-
-            
-            <a href="{% url 'modulosUnidades' unidad.id %}">
-                <button class="verModulosUnidad">Ver modulos</button>
-            </a>
+            <div class="unidad-body">
+                <h2>{{ unidad.nombreUnidad }}</h2>
+                <a href="{% url 'modulosUnidades' unidad.id %}" class="btn-unidad">
+                    Ver modulos
+                </a>
+            </div>
         </div>
-    {% empty %}
+        {% empty %}
         <p>No hay unidades disponibles.</p>
-    {% endfor %}
-</div>
-
-
+        {% endfor %}
+    </div>
 
 </div>
-
-
-
-
-
-
 
 {% endblock contenidoPagina %}
 
-
-{% block javascriptPagina %}
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-<script src="{% static 'js/nuevoCurso.js' %}?v=5"></script>
-{% endblock javascriptPagina %}
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
+{% block javascriptPagina %}{% endblock javascriptPagina %}

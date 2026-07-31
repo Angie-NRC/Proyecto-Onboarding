@@ -128,6 +128,7 @@ def cursosModulos(request, modulo_id):
         
     for curso in cursos:
         videos_ordenados = list(curso.videos.order_by('ordenVideos'))
+        total_videos = len(videos_ordenados)
         
         videos_vistos_count = 0
         if custom_user:
@@ -138,6 +139,8 @@ def cursosModulos(request, modulo_id):
                     videos_vistos_count = videos_ordenados.index(ultimo_video) + 1
             except ProgresoCurso.DoesNotExist:
                 pass
+            
+        porcentaje_curso = round((videos_vistos_count / total_videos) * 100) if total_videos > 0 else 0
             
         videos_data = []
         for idx, video in enumerate(videos_ordenados):
@@ -166,7 +169,10 @@ def cursosModulos(request, modulo_id):
             
         cursos_data.append({
             'curso': curso,
-            'videos_data': videos_data
+            'videos_data': videos_data,
+            'total_videos': total_videos,
+            'videos_vistos': videos_vistos_count,
+            'porcentaje': porcentaje_curso,
         })
     
     return render(request, 'cursos.html', {

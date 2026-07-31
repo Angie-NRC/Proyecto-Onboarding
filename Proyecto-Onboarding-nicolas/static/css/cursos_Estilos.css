@@ -1,140 +1,245 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+/* ===================================================
+   CURSOS / VIDEOS — NRC Onboarding
+   =================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 :root {
-    --azul-oscuro: #0A1A33;
-    --azul-medio: #132B4A;
-    --azul-hover: #1F4E79;
-    --amarillo: #f97316;
-    --amarillo-hover: #f97316;
-    --gris-claro: #F5F7FA;
-    --borde: #E4E7EC;
-    --texto: #1F2937;
+  --azul:    #0a4275;
+  --naranja: #f97316;
+  --blanco:  #ffffff;
+  --fondo:   #f4f7fc;
+  --borde:   #e2e8f0;
+  --texto:   #1e293b;
+  --suave:   #64748b;
 }
 
 body {
-    font-family: 'Poppins', sans-serif;
-    background-color: var(--azul-oscuro);
-    min-height: 100vh;
-    margin: 0;
-    padding: 0;
+  background: var(--fondo);
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  margin: 0;
+  padding: 0;
+  color: var(--texto);
 }
 
+/* ─── CONTENEDOR ─────────────────────────────────── */
 .listaDeCursos {
-    max-width: 1400px;
-    margin: 50px auto;
-    padding: 20px;
+  max-width: 1100px;
+  margin: 40px auto;
+  padding: 0 24px 60px;
 }
 
+/* ─── BLOQUE PRINCIPAL ───────────────────────────── */
 .cursosDisponibles {
-    background: #ffffff;
-    border-radius: 16px;
-    overflow: hidden;
-    border: 1px solid var(--borde);
-    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
+  background: var(--blanco);
+  border-radius: 12px;
+  border: 1px solid var(--borde);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
 }
 
+/* ─── CABECERA (header row) ──────────────────────── */
 .titulosCursos {
-    display: grid;
-    grid-template-columns: 2.5fr 1fr 1fr 1.5fr;
-    gap: 25px;
-    align-items: center;
-    padding: 40px 50px;
-    background: #ffffff;
-    border-bottom: 4px solid var(--amarillo);
+  display: grid;
+  grid-template-columns: 2.6fr 1fr 1fr 1.5fr;
+  background: var(--azul);
 }
 
-.nombreCurso {
-    font-size: 2.4rem;
-    font-weight: 700;
-    color: #0A1A33;
-    margin: 0;
+.titulosCursos h2,
+.titulosCursos div {
+  padding: 18px 24px;
+  margin: 0;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.65);
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.progreso,
-.Intententos {
-    font-size: 1.2rem;
-    font-weight: 600;
-    text-align: center;
-    color: #132B4A;
-    background: rgba(255,255,255,0.12);
-    padding: 14px 22px;
-    border-radius: 12px;
+.titulosCursos h2:last-child,
+.titulosCursos div:last-child {
+  border-right: none;
 }
 
+.titulosCursos h2.nombreCurso {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--blanco);
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+/* ─── SECCIÓN DE CURSO ───────────────────────────── */
 .cursosTitulo {
-    background: var(--gris-claro);
-    padding: 22px 50px;
-    border-bottom: 1px solid var(--borde);
+  padding: 12px 24px;
+  background: #f8fafd;
+  border-top: 2px solid var(--naranja);
+  border-bottom: 1px solid var(--borde);
 }
 
 .cursosTitulo h2 {
-    font-size: 1.6rem;
-    font-weight: 600;
-    color: var(--texto);
-    margin: 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--azul);
+  margin: 0;
 }
 
+/* ─── LISTA DE VIDEOS ────────────────────────────── */
 .cursosDisponibles ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 .cursosDisponibles li {
-    padding: 26px 50px;
-    border-bottom: 1px solid var(--borde);
-    display: grid;
-    grid-template-columns: 2.5fr 1fr 1fr 1.5fr;
-    align-items: center;
-    gap: 25px;
-    background: #ffffff;
-    transition: all 0.3s ease;
-}
-
-.cursosDisponibles li:hover {
-    background: #FAFBFC;
-    box-shadow: inset 6px 0 0 var(--amarillo);
+  display: grid;
+  grid-template-columns: 2.6fr 1fr 1fr 1.5fr;
+  align-items: center;
+  border-bottom: 1px solid var(--borde);
+  background: var(--blanco);
+  transition: background 0.15s;
 }
 
 .cursosDisponibles li:last-child {
-    border-bottom: none;
+  border-bottom: none;
 }
 
-.cursosDisponibles a {
-    text-decoration: none;
-    font-size: 1.05rem;
-    font-weight: 600;
-    padding: 12px 26px;
-    border-radius: 10px;
-    transition: all 0.3s ease;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
+.cursosDisponibles li:hover {
+  background: #f8fafd;
 }
 
-.cursosDisponibles a:first-child {
-    background: var(--azul-medio);
-    color: #ffffff;
+/* Col 1: nombre del video */
+.cursosDisponibles li > a:first-of-type {
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--azul);
+  padding: 16px 24px;
+  display: block;
+  border-right: 1px solid var(--borde);
+  transition: color 0.15s;
 }
 
-.cursosDisponibles a:first-child:hover {
-    background: var(--azul-hover);
-    transform: translateY(-2px);
+.cursosDisponibles li > a:first-of-type:hover {
+  color: var(--naranja);
 }
 
-.cursosDisponibles a:last-child {
-    background: var(--amarillo);
-    color: var(--azul-oscuro);
+/* Col 2 y 3: divs de estado e intentos */
+.cursosDisponibles li > div {
+  padding: 16px 14px;
+  text-align: center;
+  font-size: 0.85rem;
+  border-right: 1px solid var(--borde);
 }
 
-.cursosDisponibles a:last-child:hover {
-    background: var(--amarillo-hover);
-    transform: translateY(-2px);
+/* Col 4: botón o texto */
+.cursosDisponibles li > a:last-of-type {
+  display: block;
+  text-decoration: none;
+  background: var(--naranja);
+  color: var(--blanco);
+  font-size: 0.82rem;
+  font-weight: 600;
+  border-radius: 6px;
+  padding: 8px 14px;
+  margin: 0 16px;
+  text-align: center;
+  transition: background 0.2s;
 }
 
-.cursosDisponibles li:only-child {
-    text-align: center;
-    font-style: italic;
-    color: #6B7280;
-    padding: 50px;
+.cursosDisponibles li > a:last-of-type:hover {
+  background: var(--azul);
+}
+
+.cursosDisponibles li > span {
+  display: block;
+  text-align: center;
+  padding: 0 16px;
+  color: #cbd5e1;
+  font-size: 0.8rem;
+  font-style: italic;
+}
+
+/* ─── BADGES ─────────────────────────────────────── */
+.badge-visto {
+  display: inline-block;
+  background: #dcfce7;
+  color: #15803d;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 20px;
+  border: 1px solid #bbf7d0;
+}
+
+.badge-pendiente {
+  display: inline-block;
+  background: #f1f5f9;
+  color: #94a3b8;
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 3px 10px;
+  border-radius: 20px;
+  border: 1px solid var(--borde);
+}
+
+.badge-aprobado-txt {
+  display: block;
+  color: #15803d;
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin-top: 2px;
+}
+
+/* ─── EMPTY STATE ────────────────────────────────── */
+.cursosDisponibles li.empty-row {
+  display: block;
+  text-align: center;
+  padding: 40px;
+  color: var(--suave);
+  font-style: italic;
+  font-size: 0.9rem;
+  border-bottom: none;
+}
+
+.cursosDisponibles > p {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--suave);
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+/* ─── RESPONSIVE ─────────────────────────────────── */
+@media (max-width: 768px) {
+  .listaDeCursos { padding: 0 12px 40px; margin-top: 24px; }
+
+  .titulosCursos {
+    grid-template-columns: 1fr;
+  }
+  .titulosCursos h2.progreso,
+  .titulosCursos h2.Intententos,
+  .titulosCursos div:last-child {
+    display: none;
+  }
+  .titulosCursos h2.nombreCurso {
+    border-right: none;
+  }
+
+  .cursosDisponibles li {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .cursosDisponibles li > a:first-of-type {
+    border-right: none;
+    border-bottom: 1px solid var(--borde);
+  }
+  .cursosDisponibles li > div {
+    border-right: none;
+    text-align: left;
+  }
+  .cursosDisponibles li > a:last-of-type {
+    margin: 8px 16px 12px;
+  }
 }

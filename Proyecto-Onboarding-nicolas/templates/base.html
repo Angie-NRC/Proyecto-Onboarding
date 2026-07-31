@@ -5,9 +5,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>bases</title>
+  <title>{% block title %}NRC Onboarding{% endblock %}</title>
+  <meta name="description" content="Plataforma de onboarding NRC — Norwegian Refugee Council">
 
-  <link rel="stylesheet" href="{% static 'css/estiloBarraNavega.css' %}?v=6">
+  <link rel="stylesheet" href="{% static 'css/estiloBarraNavega.css' %}?v=30">
 
   {% block cssAdicional %}{% endblock cssAdicional %}
   <link rel="stylesheet" href="{% static 'css/home_Estilos.css' %}?v=99">
@@ -26,9 +27,9 @@
         <li><a href="{% url 'home' %}">Home</a></li>
         <li><a href="{% url 'unidadesNRC'  %}">Cursos Unidades </a> </li>
         {% if user.is_authenticated %}
-        <li><a href="{% url 'mi_progreso' %}">📊 Mi Progreso</a></li>
+        <li><a href="{% url 'mi_progreso' %}">Mi Progreso</a></li>
         {% endif %}
-        <li><a href="{% url 'panel_dashboard' %}" style="color: #FF6B2B; font-weight: bold;">⚙ Panel Admin</a></li>
+        <li><a href="{% url 'panel_dashboard' %}" style="color: #f97316; font-weight: 600;">Panel Admin</a></li>
       </ul>
 
       <ul class="navbar-menu navbar-menu-right">
